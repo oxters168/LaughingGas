@@ -54,12 +54,15 @@ lock_rotation = true
 script = ExtResource("1_8ac0o")
 walkSpeed = 50.0
 runSeed = 80.0
+climbSpeed = 50.0
 walkJumpSpeed = 50.0
 runJumpSpeed = 40.0
 addedFallAcceleration = 0.0
 wallDetectionDistance = 2.0
+leftDetectOffset = -1.0
+rightDetectOffset = -1.0
+topDetectOffset = -1.0
 bottomDetectOffset = -1.0
-verticalDetectSideOffset = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicsCharacter2D"]
 position = Vector2(0, -5)

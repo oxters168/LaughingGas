@@ -125,14 +125,14 @@ func move_character(delta):
 		if currentAnimeState == AnimeState.SideClimb || currentAnimeState == AnimeState.SideClimbIdle || currentAnimeState == AnimeState.TopClimb || currentAnimeState == AnimeState.TopClimbIdle || (currentAnimeState == AnimeState.Jump && prevAnimeState != AnimeState.Jump):
 			var verticalSpeed: float = 0
 			if currentState == SpecificState.ClimbRightUp || currentState == SpecificState.ClimbLeftUp:
-				verticalSpeed = climbSpeed
-			elif currentState == SpecificState.ClimbLeftDown || currentState == SpecificState.ClimbRightDown:
 				verticalSpeed = -climbSpeed
+			elif currentState == SpecificState.ClimbLeftDown || currentState == SpecificState.ClimbRightDown:
+				verticalSpeed = climbSpeed
 			elif currentAnimeState != AnimeState.SideClimbIdle && currentAnimeState != AnimeState.TopClimb && currentAnimeState != AnimeState.TopClimbIdle:
 				if abs(currentInput.horizontal) > deadzone && currentInput.sprint:
-					verticalSpeed = runJumpSpeed
+					verticalSpeed = -runJumpSpeed
 				else:
-					verticalSpeed = walkJumpSpeed
+					verticalSpeed = -walkJumpSpeed
 
 			verticalForce = PhysicsHelpers.calculate_required_force_for_speed_1d(mass, linear_velocity.y, (otherObjectVelocity.y + otherObjectPredictedVelocity.y) + verticalSpeed, delta, true)
 
@@ -149,7 +149,7 @@ func move_character(delta):
 		if abs(horizontalForce) > Constants.EPSILON:
 			apply_central_force(Vector2.RIGHT * horizontalForce)
 		if abs(verticalForce) > Constants.EPSILON:
-			apply_central_force(Vector2.UP * verticalForce)
+			apply_central_force(Vector2.DOWN * verticalForce)
 
 func detect_wall():
 	var collider = NodeHelpers.get_child_of_type(self, CollisionShape2D)
