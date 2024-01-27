@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cvxgay00f88ty"]
 
 [ext_resource type="Script" path="res://Scripts/2DPhysicsCharacter.gd" id="1_8ac0o"]
-[ext_resource type="PackedScene" uid="uid://12r3g7c3ha4p" path="res://Scenes/n20_character.tscn" id="2_jdmvh"]
+[ext_resource type="PackedScene" uid="uid://12r3g7c3ha4p" path="res://Prefabs/n20_character.tscn" id="2_jdmvh"]
 [ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="3_6dot2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a6826"]

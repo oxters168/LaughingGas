@@ -1,0 +1,14 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://cjgevqiove82s"]
+
+[ext_resource type="Texture2D" uid="uid://dkf5o5m40olrm" path="res://Assets/Art/EndoHead.png" id="1_43a6v"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_43a6v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
