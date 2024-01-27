@@ -1,0 +1,3 @@
+[submodule "GodotHelpers"]
+	path = GodotHelpers
+	url = https://github.com/oxters168/GodotHelpers
