@@ -35,9 +35,12 @@ mesh = SubResource("QuadMesh_0degx")
 
 [node name="PhysicsCharacter2D" type="RigidBody2D" parent="."]
 position = Vector2(0, -20)
+lock_rotation = true
 script = ExtResource("1_8ac0o")
+walkJumpSpeed = 0.005
 wallDetectionDistance = 2.0
 bottomDetectOffset = -1.0
+verticalDetectSideOffset = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicsCharacter2D"]
 position = Vector2(0, -5)

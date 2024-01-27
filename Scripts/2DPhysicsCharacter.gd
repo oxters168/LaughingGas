@@ -58,28 +58,56 @@ func _ready():
 
 func _process(_delta):
 	currentPhysicals.velocity = linear_velocity
+	DebugDraw.set_text("Velocity", Vector2(MathHelpers.to_decimal_places(currentPhysicals.velocity.x, 2), MathHelpers.to_decimal_places(currentPhysicals.velocity.y, 2)))
+	DebugDraw.set_text("CurrentState", SpecificState.keys()[currentState])
 	detect_wall()
+	tick_state()
+	apply_animation()
 func _physics_process(delta):
+	retrieve_surrounding_velocity()
 	move_character(delta)
+	prevInput = currentInput
 
-func _input(event):
+func _input(_event):
 	var input_vector = Input.get_vector("move_hor_neg", "move_hor_pos", "move_ver_neg", "move_ver_pos")
 	currentInput.horizontal = input_vector.x
 	currentInput.vertical = input_vector.y
 	currentInput.jump = Input.is_action_pressed("jump")
 	currentInput.sprint = Input.is_action_pressed("sprint")
 
-static func IsFacingRight(state: SpecificState) -> bool:
+func tick_state():
+	var nextState = PhysicsCharacter2D.get_next_state(currentState, prevState, currentInput, currentPhysicals, deadzone)
+	prevState = currentState
+	currentState = nextState
+
+func apply_animation():
+	var flipX: bool = PhysicsCharacter2D.is_facing_right(currentState)
+	SetFlipState(!flipX if invertFlip else flipX)
+	var prevAnimeState = PhysicsCharacter2D.get_anime_from_state(prevState)
+	var currentAnimeState = PhysicsCharacter2D.get_anime_from_state(currentState)
+	if (prevAnimeState != currentAnimeState):
+			SetAnimTrigger(AnimeState.keys()[currentAnimeState])
+
+static func is_facing_right(state: SpecificState) -> bool:
 	var right_states = [SpecificState.IdleRight, SpecificState.WalkRight, SpecificState.RunRight, SpecificState.JumpFaceRight, SpecificState.JumpMoveRight, SpecificState.FallFaceRight, SpecificState.FallMoveRight, SpecificState.ClimbRightIdle, SpecificState.ClimbRightUp, SpecificState.ClimbRightDown, SpecificState.ClimbTopIdleRight, SpecificState.ClimbTopMoveRight]
 	return right_states.has(state)
+
+func SetFlipState(flipX: bool):
+	# for (sprite7Up in Sprite7Up):
+	# 		sprite7Up.flipX = flipX;
+	pass
+func SetAnimTrigger(name: String):
+	# foreach(var spriteAnim in SpriteAnim)
+	# 		spriteAnim.SetTrigger(name);
+	pass
 
 func move_character(delta):
 		var horizontalForce: float = 0
 		var verticalForce: float = 0
 
-		var prevAnimeState: AnimeState = AnimeState.Idle# = GetAnimeFromState(prevState)
-		var currentAnimeState: AnimeState = AnimeState.Idle# = GetAnimeFromState(currentState)
-		var isFacingRight = PhysicsCharacter2D.IsFacingRight(currentState)
+		var prevAnimeState: AnimeState = PhysicsCharacter2D.get_anime_from_state(prevState)
+		var currentAnimeState: AnimeState = PhysicsCharacter2D.get_anime_from_state(currentState)
+		var isFacingRight = PhysicsCharacter2D.is_facing_right(currentState)
 
 		var otherObjectPredictedVelocity: Vector2 = (otherObjectVelocity - otherObjectPrevVelocity);
 		
@@ -116,6 +144,8 @@ func move_character(delta):
 		if currentAnimeState == AnimeState.Jump && currentPhysicals.velocity.y > 0 && prevInput.jump && !currentInput.jump:
 			verticalForce = PhysicsHelpers.calculate_required_force_for_speed_1d(mass, linear_velocity.y, 0, delta)
 		
+		DebugDraw.set_text("HorizontalForce:", horizontalForce)
+		DebugDraw.set_text("VerticalForce:", verticalForce)
 		if abs(horizontalForce) > Constants.EPSILON:
 			add_constant_force(Vector2.RIGHT * horizontalForce)
 		if abs(verticalForce) > Constants.EPSILON:
@@ -201,3 +231,338 @@ func wall_cast(debug: bool, mask: int, rays: Array[PhysicsRayQueryParameters2D])
 			wall_hit = result.collider
 			break
 	return wall_hit
+
+func retrieve_surrounding_velocity():
+	otherObjectPrevVelocity = otherObjectVelocity;
+	# Get other object's velocity if climbing or standing on it to keep up with it
+	if (currentPhysicals.rightWall != null && (currentState == SpecificState.ClimbRightIdle || currentState == SpecificState.ClimbRightUp || currentState == SpecificState.ClimbRightDown)):
+		var rightWallPhysics = currentPhysicals.rightWall
+		if (rightWallPhysics != null && rightWallPhysics is RigidBody2D):
+			otherObjectVelocity = (rightWallPhysics as RigidBody2D).linear_velocity
+	elif (currentPhysicals.leftWall != null && (currentState == SpecificState.ClimbLeftIdle || currentState == SpecificState.ClimbLeftUp || currentState == SpecificState.ClimbLeftDown)):
+		var leftWallPhysics = currentPhysicals.leftWall
+		if (leftWallPhysics != null && leftWallPhysics is RigidBody2D):
+			otherObjectVelocity = (leftWallPhysics as RigidBody2D).linear_velocity
+	elif (currentPhysicals.topWall != null && (currentState == SpecificState.ClimbTopIdleLeft || currentState == SpecificState.ClimbTopIdleRight || currentState == SpecificState.ClimbTopMoveLeft || currentState == SpecificState.ClimbTopMoveRight)):
+		var topWallPhysics = currentPhysicals.topWall
+		if (topWallPhysics != null && topWallPhysics is RigidBody2D):
+			otherObjectVelocity = (topWallPhysics as RigidBody2D).linear_velocity
+	elif (currentPhysicals.botWall != null):
+		var botWallPhysics = currentPhysicals.botWall
+		if (botWallPhysics != null && botWallPhysics is RigidBody2D):
+			otherObjectVelocity = (botWallPhysics as RigidBody2D).linear_velocity #Might want to remove y value because object is below us and we are only standing on it, not grabbing on to it
+
+	# Cancel out any velocities that can't be achieved
+	if ((currentPhysicals.rightWall && otherObjectVelocity.x > Constants.EPSILON) || (currentPhysicals.leftWall && otherObjectVelocity.x < -Constants.EPSILON)):
+			otherObjectVelocity = Vector2(0, otherObjectVelocity.y)
+	if ((currentPhysicals.topWall && otherObjectVelocity.y > Constants.EPSILON) || (currentPhysicals.botWall && otherObjectVelocity.y < -Constants.EPSILON)):
+			otherObjectVelocity = Vector2(otherObjectVelocity.x, 0)
+
+static func get_next_state(currentState: SpecificState, prevState: SpecificState, currentInput: InputData, currentPhysicals: PhysicalData, deadzone: float = Constants.EPSILON) -> SpecificState:
+	var nextState = currentState
+
+	if (currentState == SpecificState.IdleLeft):
+		if (currentInput.horizontal > deadzone):
+			nextState = SpecificState.IdleRight
+		elif (currentInput.sprint && currentInput.horizontal < -deadzone):
+			nextState = SpecificState.RunLeft
+		elif (currentInput.horizontal < -deadzone):
+			nextState = SpecificState.WalkLeft
+		elif (currentPhysicals.velocity.y < -deadzone):
+			nextState = SpecificState.FallFaceLeft
+		elif (currentInput.jump):
+			nextState = SpecificState.JumpFaceLeft
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopIdleLeft
+		elif (!currentPhysicals.botWall):
+			nextState = SpecificState.FallFaceLeft
+	if (currentState == SpecificState.IdleRight):
+		if (currentInput.sprint && currentInput.horizontal > deadzone):
+			nextState = SpecificState.RunRight;
+		elif (currentInput.horizontal > deadzone):
+			nextState = SpecificState.WalkRight;
+		elif (currentInput.horizontal < -deadzone):
+			nextState = SpecificState.IdleLeft;
+		elif (currentPhysicals.velocity.y < -deadzone):
+			nextState = SpecificState.FallFaceLeft;
+		elif (currentInput.jump):
+			nextState = SpecificState.JumpFaceRight;
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopIdleRight;
+		elif (!currentPhysicals.botWall):
+			nextState = SpecificState.FallFaceRight;
+	if (currentState == SpecificState.WalkLeft):
+		if (currentInput.sprint && currentInput.horizontal < -deadzone):
+			nextState = SpecificState.RunLeft;
+		elif (currentInput.horizontal > -deadzone):
+			nextState = SpecificState.IdleLeft;
+		elif (currentPhysicals.velocity.y < -deadzone):
+			nextState = SpecificState.FallMoveLeft;
+		elif (currentInput.jump):
+			nextState = SpecificState.JumpMoveLeft;
+		elif (currentPhysicals.leftWall):
+			nextState = SpecificState.ClimbLeftIdle;
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopMoveLeft;
+		elif (!currentPhysicals.botWall):
+			nextState = SpecificState.FallMoveLeft;
+	if (currentState == SpecificState.WalkRight):
+		if (currentInput.sprint && currentInput.horizontal > deadzone):
+			nextState = SpecificState.RunRight;
+		elif (currentInput.horizontal < deadzone):
+			nextState = SpecificState.IdleRight;
+		elif (currentPhysicals.velocity.y < -deadzone):
+			nextState = SpecificState.FallMoveRight;
+		elif (currentInput.jump):
+			nextState = SpecificState.JumpMoveRight;
+		elif (currentPhysicals.rightWall):
+			nextState = SpecificState.ClimbRightIdle;
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopMoveRight;
+		elif (!currentPhysicals.botWall):
+			nextState = SpecificState.FallMoveRight;
+	if (currentState == SpecificState.RunLeft):
+		if (!currentInput.sprint && currentInput.horizontal < -deadzone):
+			nextState = SpecificState.WalkLeft;
+		elif (currentInput.horizontal > -deadzone):
+			nextState = SpecificState.IdleLeft;
+		elif (currentPhysicals.velocity.y < -deadzone):
+			nextState = SpecificState.FallMoveLeft;
+		elif (currentInput.jump):
+			nextState = SpecificState.JumpMoveLeft;
+		elif (currentPhysicals.leftWall):
+			nextState = SpecificState.ClimbLeftIdle;
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopMoveLeft;
+		elif (!currentPhysicals.botWall):
+			nextState = SpecificState.FallMoveLeft;
+	if (currentState == SpecificState.RunRight):
+		if (!currentInput.sprint && currentInput.horizontal > deadzone):
+			nextState = SpecificState.WalkRight;
+		elif (currentInput.horizontal < deadzone):
+			nextState = SpecificState.IdleRight;
+		elif (currentPhysicals.velocity.y < -deadzone):
+			nextState = SpecificState.FallMoveRight;
+		elif (currentInput.jump):
+			nextState = SpecificState.JumpMoveRight;
+		elif (currentPhysicals.rightWall):
+			nextState = SpecificState.ClimbRightIdle;
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopMoveRight;
+		elif (!currentPhysicals.botWall):
+			nextState = SpecificState.FallMoveRight;
+	if (currentState == SpecificState.JumpFaceLeft):
+		if (currentPhysicals.velocity.y < -deadzone):
+			nextState = SpecificState.FallFaceLeft;
+		elif (currentInput.horizontal < -deadzone):
+			nextState = SpecificState.JumpMoveLeft;
+		elif (currentInput.horizontal > deadzone):
+			nextState = SpecificState.JumpFaceRight;
+		elif (currentPhysicals.botWall):
+			nextState = SpecificState.IdleLeft;
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopIdleLeft;
+	if (currentState == SpecificState.JumpFaceRight):
+		if (currentPhysicals.velocity.y < -deadzone):
+			nextState = SpecificState.FallFaceRight;
+		elif (currentInput.horizontal > deadzone):
+			nextState = SpecificState.JumpMoveRight;
+		elif (currentInput.horizontal < -deadzone):
+			nextState = SpecificState.JumpFaceLeft;
+		elif (currentPhysicals.botWall):
+			nextState = SpecificState.IdleRight;
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopIdleRight;
+	if (currentState == SpecificState.JumpMoveLeft):
+		if (currentPhysicals.velocity.y < -deadzone):
+			nextState = SpecificState.FallMoveLeft;
+		elif (currentInput.horizontal > -deadzone):
+			nextState = SpecificState.JumpFaceLeft;
+		elif (currentPhysicals.botWall && currentInput.sprint && currentInput.horizontal < -deadzone):
+			nextState = SpecificState.RunLeft;
+		elif (currentPhysicals.botWall && currentInput.horizontal < -deadzone):
+			nextState = SpecificState.WalkLeft;
+		elif (currentPhysicals.botWall):
+			nextState = SpecificState.IdleLeft;
+		elif (currentPhysicals.leftWall):
+			nextState = SpecificState.ClimbLeftIdle;
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopMoveLeft;
+	if (currentState == SpecificState.JumpMoveRight):
+		if (currentPhysicals.velocity.y < -deadzone):
+			nextState = SpecificState.FallMoveRight;
+		elif (currentInput.horizontal < deadzone):
+			nextState = SpecificState.JumpFaceRight;
+		elif (currentPhysicals.botWall && currentInput.sprint && currentInput.horizontal > deadzone):
+			nextState = SpecificState.RunRight;
+		elif (currentPhysicals.botWall && currentInput.horizontal > deadzone):
+			nextState = SpecificState.WalkRight;
+		elif (currentPhysicals.botWall):
+			nextState = SpecificState.IdleRight;
+		elif (currentPhysicals.rightWall):
+			nextState = SpecificState.ClimbRightIdle;
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopMoveRight;
+	if (currentState == SpecificState.FallFaceLeft):
+		if (currentPhysicals.botWall):
+			nextState = SpecificState.IdleLeft;
+		elif (currentInput.horizontal < -deadzone):
+			nextState = SpecificState.FallMoveLeft;
+		elif (currentInput.horizontal > deadzone):
+			nextState = SpecificState.FallFaceRight;
+	if (currentState == SpecificState.FallFaceRight):
+		if (currentPhysicals.botWall):
+			nextState = SpecificState.IdleRight;
+		elif (currentInput.horizontal > deadzone):
+			nextState = SpecificState.FallMoveRight;
+		elif (currentInput.horizontal < -deadzone):
+			nextState = SpecificState.FallFaceLeft;
+	if (currentState == SpecificState.FallMoveLeft):
+		if (currentPhysicals.botWall && currentInput.sprint && currentInput.horizontal < -deadzone):
+			nextState = SpecificState.RunLeft;
+		elif (currentPhysicals.botWall && currentInput.horizontal < -deadzone):
+			nextState = SpecificState.WalkLeft;
+		elif (currentPhysicals.botWall):
+			nextState = SpecificState.IdleLeft;
+		elif (currentInput.horizontal > -deadzone):
+			nextState = SpecificState.FallFaceLeft;
+		elif (currentPhysicals.leftWall):
+			nextState = SpecificState.ClimbLeftIdle;
+	if (currentState == SpecificState.FallMoveRight):
+		if (currentPhysicals.botWall && currentInput.sprint && currentInput.horizontal > deadzone):
+			nextState = SpecificState.RunRight;
+		elif (currentPhysicals.botWall && currentInput.horizontal > deadzone):
+			nextState = SpecificState.WalkRight;
+		elif (currentPhysicals.botWall):
+			nextState = SpecificState.IdleRight;
+		elif (currentInput.horizontal < deadzone):
+			nextState = SpecificState.FallFaceRight;
+		elif (currentPhysicals.rightWall):
+			nextState = SpecificState.ClimbRightIdle;
+	if (currentState == SpecificState.ClimbLeftIdle):
+		if (currentInput.horizontal > -deadzone):
+			nextState = SpecificState.FallFaceLeft;
+		elif (currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbLeftUp;
+		elif (currentInput.vertical < -deadzone && !currentPhysicals.botWall):
+			nextState = SpecificState.ClimbLeftDown;
+		elif (!currentPhysicals.leftWall):
+			nextState = SpecificState.FallFaceLeft;
+	if (currentState == SpecificState.ClimbRightIdle):
+		if (currentInput.horizontal < deadzone):
+			nextState = SpecificState.FallFaceRight;
+		elif (currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbRightUp;
+		elif (currentInput.vertical < -deadzone && !currentPhysicals.botWall):
+			nextState = SpecificState.ClimbRightDown;
+		elif (!currentPhysicals.rightWall):
+			nextState = SpecificState.FallFaceRight;
+	if (currentState == SpecificState.ClimbLeftUp):
+		if (currentInput.horizontal > -deadzone):
+			nextState = SpecificState.FallFaceLeft;
+		elif (currentInput.vertical < deadzone):
+			nextState = SpecificState.ClimbLeftIdle;
+		elif (!currentPhysicals.leftWall):
+			nextState = SpecificState.FallMoveLeft;
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopIdleLeft;
+		elif (!currentPhysicals.leftWall):
+			nextState = SpecificState.FallFaceLeft;
+	if (currentState == SpecificState.ClimbRightUp):
+		if (currentInput.horizontal < deadzone):
+			nextState = SpecificState.FallFaceRight;
+		elif (currentInput.vertical < deadzone):
+			nextState = SpecificState.ClimbRightIdle;
+		elif (!currentPhysicals.rightWall):
+			nextState = SpecificState.FallMoveRight;
+		elif (currentPhysicals.topWall && currentInput.vertical > deadzone):
+			nextState = SpecificState.ClimbTopIdleRight;
+		elif (!currentPhysicals.rightWall):
+			nextState = SpecificState.FallFaceRight;
+	if (currentState == SpecificState.ClimbLeftDown):
+		if (currentInput.horizontal > -deadzone):
+			nextState = SpecificState.FallFaceLeft;
+		elif (currentInput.vertical > -deadzone):
+			nextState = SpecificState.ClimbLeftIdle;
+		elif (!currentPhysicals.leftWall):
+			nextState = SpecificState.FallMoveLeft;
+		elif (currentPhysicals.botWall):
+			nextState = SpecificState.ClimbLeftIdle;
+		elif (!currentPhysicals.leftWall):
+			nextState = SpecificState.FallFaceLeft;
+	if (currentState == SpecificState.ClimbRightDown):
+		if (currentInput.horizontal < deadzone):
+			nextState = SpecificState.FallFaceRight;
+		elif (currentInput.vertical > -deadzone):
+			nextState = SpecificState.ClimbRightIdle;
+		elif (!currentPhysicals.rightWall):
+			nextState = SpecificState.FallMoveRight;
+		elif (currentPhysicals.botWall):
+			nextState = SpecificState.ClimbRightIdle;
+		elif (!currentPhysicals.rightWall):
+			nextState = SpecificState.FallFaceRight;
+	if (currentState == SpecificState.ClimbTopIdleLeft):
+		if (currentInput.vertical < deadzone):
+			nextState = SpecificState.FallFaceLeft;
+		elif (currentInput.horizontal < -deadzone && !currentPhysicals.leftWall):
+			nextState = SpecificState.ClimbTopMoveLeft;
+		elif (currentInput.horizontal > deadzone):
+			nextState = SpecificState.ClimbTopIdleRight;
+		elif (!currentPhysicals.topWall):
+			nextState = SpecificState.FallFaceLeft;
+	if (currentState == SpecificState.ClimbTopIdleRight):
+		if (currentInput.vertical < deadzone):
+			nextState = SpecificState.FallFaceRight;
+		elif (currentInput.horizontal > deadzone && !currentPhysicals.rightWall):
+			nextState = SpecificState.ClimbTopMoveRight;
+		elif (currentInput.horizontal < -deadzone):
+			nextState = SpecificState.ClimbTopIdleLeft;
+		elif (!currentPhysicals.topWall):
+			nextState = SpecificState.FallFaceRight;
+	if (currentState == SpecificState.ClimbTopMoveLeft):
+		if (currentInput.vertical < deadzone):
+			nextState = SpecificState.FallMoveLeft;
+		elif (currentInput.horizontal > -deadzone):
+			nextState = SpecificState.ClimbTopIdleLeft;
+		elif (!currentPhysicals.topWall):
+			nextState = SpecificState.FallMoveLeft;
+		elif (currentPhysicals.leftWall):
+			nextState = SpecificState.ClimbTopIdleLeft;
+		elif (!currentPhysicals.topWall):
+			nextState = SpecificState.FallFaceLeft;
+	if (currentState == SpecificState.ClimbTopMoveRight):
+		if (currentInput.vertical < deadzone):
+			nextState = SpecificState.FallMoveRight;
+		elif (currentInput.horizontal < deadzone):
+			nextState = SpecificState.ClimbTopIdleRight;
+		elif (!currentPhysicals.topWall):
+			nextState = SpecificState.FallMoveRight;
+		elif (currentPhysicals.rightWall):
+			nextState = SpecificState.ClimbTopIdleRight;
+		elif (!currentPhysicals.topWall):
+			nextState = SpecificState.FallFaceRight;
+	return nextState
+
+static func get_anime_from_state(state: SpecificState) -> AnimeState:
+	var animeState = AnimeState.Idle
+
+	if [SpecificState.WalkLeft, SpecificState.WalkRight].has(state):
+		animeState = AnimeState.Walk
+	if [SpecificState.IdleLeft, SpecificState.IdleRight].has(state):
+		animeState = AnimeState.Idle
+	if [SpecificState.RunLeft, SpecificState.RunRight].has(state):
+		animeState = AnimeState.Run
+	if [SpecificState.JumpFaceLeft, SpecificState.JumpFaceRight, SpecificState.JumpMoveLeft, SpecificState.JumpMoveRight].has(state):
+		animeState = AnimeState.Jump
+	if [SpecificState.FallFaceLeft, SpecificState.FallFaceRight, SpecificState.FallMoveLeft, SpecificState.FallMoveRight].has(state):
+		animeState = AnimeState.AirFall
+	if [SpecificState.ClimbLeftIdle, SpecificState.ClimbRightIdle].has(state):
+		animeState = AnimeState.SideClimbIdle
+	if [SpecificState.ClimbLeftUp, SpecificState.ClimbLeftDown, SpecificState.ClimbRightUp, SpecificState.ClimbRightDown].has(state):
+		animeState = AnimeState.SideClimb
+	if [SpecificState.ClimbTopIdleLeft, SpecificState.ClimbTopIdleRight].has(state):
+		animeState = AnimeState.TopClimbIdle
+	if [SpecificState.ClimbTopMoveLeft, SpecificState.ClimbTopMoveRight].has(state):
+		animeState = AnimeState.TopClimb
+
+	return animeState
