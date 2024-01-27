@@ -1,11 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvxgay00f88ty"]
+[gd_scene load_steps=7 format=3 uid="uid://cvxgay00f88ty"]
 
 [ext_resource type="Script" path="res://Scripts/2DPhysicsCharacter.gd" id="1_8ac0o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y3bnt"]
 size = Vector2(100, 20)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b4d13"]
+
 [sub_resource type="QuadMesh" id="QuadMesh_0degx"]
+material = SubResource("StandardMaterial3D_b4d13")
 size = Vector2(100, 20)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xsgm4"]
@@ -18,24 +21,28 @@ height = 10.0
 
 [node name="Node2D" type="Node2D"]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(20, 20)
+
+[node name="StaticBody2D (ground)" type="StaticBody2D" parent="."]
 position = Vector2(0, 10)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D (ground)"]
 shape = SubResource("RectangleShape2D_y3bnt")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D (ground)"]
 mesh = SubResource("QuadMesh_0degx")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
 
 [node name="PhysicsCharacter2D" type="RigidBody2D" parent="."]
 position = Vector2(0, -20)
 script = ExtResource("1_8ac0o")
+wallDetectionDistance = 2.0
+bottomDetectOffset = -1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicsCharacter2D"]
+position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_xsgm4")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="PhysicsCharacter2D"]
+position = Vector2(0, -5)
 mesh = SubResource("CapsuleMesh_6e1m7")
