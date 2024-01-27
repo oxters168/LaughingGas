@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvxgay00f88ty"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xsgm4"]
+radius = 2.0
+height = 10.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6e1m7"]
+radius = 2.0
+height = 10.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y3bnt"]
+size = Vector2(100, 20)
+
+[sub_resource type="QuadMesh" id="QuadMesh_0degx"]
+size = Vector2(100, 20)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(0, -20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CapsuleShape2D_xsgm4")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="RigidBody2D"]
+mesh = SubResource("CapsuleMesh_6e1m7")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 10)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_y3bnt")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+mesh = SubResource("QuadMesh_0degx")
+
+[node name="Camera2D" type="Camera2D" parent="."]
