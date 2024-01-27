@@ -19,8 +19,8 @@ enum AnimeState { Idle, Walk, Run, Jump, AirFall, Land, TopClimb, TopClimbIdle, 
 func _init():
 	currentPhysicals = PhysicalData.new()
 
-var currentInput: InputData
-var prevInput: InputData
+var currentInput: InputData = InputData.new()
+var prevInput: InputData = InputData.new()
 var prevState: SpecificState
 var currentState: SpecificState
 var currentPhysicals: PhysicalData = PhysicalData.new()
@@ -35,6 +35,8 @@ var currentPhysicals: PhysicalData = PhysicalData.new()
 @export var groundMask: int = ~0
 @export var wallMask: int = ~0
 @export var ceilingMask: int = ~0
+
+@export var deadzone: float = 0.1
 
 var invertFlip: bool
 
@@ -51,21 +53,80 @@ var collider_bounds: Rect2
 var otherObjectVelocity: Vector2
 var otherObjectPrevVelocity: Vector2
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	currentPhysicals.velocity = linear_velocity
 	detect_wall()
+func _physics_process(delta):
+	move_character(delta)
+
+func _input(event):
+	var input_vector = Input.get_vector("move_hor_neg", "move_hor_pos", "move_ver_neg", "move_ver_pos")
+	currentInput.horizontal = input_vector.x
+	currentInput.vertical = input_vector.y
+	currentInput.jump = Input.is_action_pressed("jump")
+	currentInput.sprint = Input.is_action_pressed("sprint")
+
+static func IsFacingRight(state: SpecificState) -> bool:
+	var right_states = [SpecificState.IdleRight, SpecificState.WalkRight, SpecificState.RunRight, SpecificState.JumpFaceRight, SpecificState.JumpMoveRight, SpecificState.FallFaceRight, SpecificState.FallMoveRight, SpecificState.ClimbRightIdle, SpecificState.ClimbRightUp, SpecificState.ClimbRightDown, SpecificState.ClimbTopIdleRight, SpecificState.ClimbTopMoveRight]
+	return right_states.has(state)
+
+func move_character(delta):
+		var horizontalForce: float = 0
+		var verticalForce: float = 0
+
+		var prevAnimeState: AnimeState = AnimeState.Idle# = GetAnimeFromState(prevState)
+		var currentAnimeState: AnimeState = AnimeState.Idle# = GetAnimeFromState(currentState)
+		var isFacingRight = PhysicsCharacter2D.IsFacingRight(currentState)
+
+		var otherObjectPredictedVelocity: Vector2 = (otherObjectVelocity - otherObjectPrevVelocity);
+		
+		var horizontalVelocity: float = 0
+		if currentAnimeState == AnimeState.Idle || currentAnimeState == AnimeState.Walk || currentAnimeState == AnimeState.Run || currentAnimeState == AnimeState.SideClimb || currentAnimeState == AnimeState.SideClimbIdle || currentAnimeState == AnimeState.TopClimb || currentAnimeState == AnimeState.TopClimbIdle || currentState == SpecificState.FallMoveLeft || currentState == SpecificState.FallMoveRight || currentState == SpecificState.JumpMoveLeft || currentState == SpecificState.JumpMoveRight:
+			if currentAnimeState == AnimeState.TopClimb:
+				horizontalVelocity = (1 if isFacingRight else -1) * climbSpeed
+			elif currentAnimeState != AnimeState.Idle && currentAnimeState != AnimeState.TopClimbIdle && currentAnimeState != AnimeState.SideClimb && currentAnimeState != AnimeState.SideClimbIdle:
+				if !currentInput.sprint:
+					horizontalVelocity = (1 if isFacingRight else -1) * walkSpeed
+				else:
+					horizontalVelocity = (1 if isFacingRight else -1) * runSeed
+		horizontalForce = PhysicsHelpers.calculate_required_force_for_speed_1d(mass, linear_velocity.x, (otherObjectVelocity.x + otherObjectPredictedVelocity.x) + horizontalVelocity, delta)
+
+		if currentAnimeState == AnimeState.SideClimb || currentAnimeState == AnimeState.SideClimbIdle || currentAnimeState == AnimeState.TopClimb || currentAnimeState == AnimeState.TopClimbIdle || (currentAnimeState == AnimeState.Jump && prevAnimeState != AnimeState.Jump):
+			var verticalSpeed: float = 0
+			if currentState == SpecificState.ClimbRightUp || currentState == SpecificState.ClimbLeftUp:
+				verticalSpeed = climbSpeed
+			elif currentState == SpecificState.ClimbLeftDown || currentState == SpecificState.ClimbRightDown:
+				verticalSpeed = -climbSpeed
+			elif currentAnimeState != AnimeState.SideClimbIdle && currentAnimeState != AnimeState.TopClimb && currentAnimeState != AnimeState.TopClimbIdle:
+				if abs(currentInput.horizontal) > deadzone && currentInput.sprint:
+					verticalSpeed = runJumpSpeed
+				else:
+					verticalSpeed = walkJumpSpeed
+
+			verticalForce = PhysicsHelpers.calculate_required_force_for_speed_1d(mass, linear_velocity.y, (otherObjectVelocity.y + otherObjectPredictedVelocity.y) + verticalSpeed, delta, true)
+
+		# Added weight when falling for better feel
+		if currentAnimeState == AnimeState.AirFall && currentPhysicals.velocity.y < -Constants.EPSILON:
+			verticalForce -= mass * addedFallAcceleration
+
+		# When the jump button stops being held then stop ascending
+		if currentAnimeState == AnimeState.Jump && currentPhysicals.velocity.y > 0 && prevInput.jump && !currentInput.jump:
+			verticalForce = PhysicsHelpers.calculate_required_force_for_speed_1d(mass, linear_velocity.y, 0, delta)
+		
+		if abs(horizontalForce) > Constants.EPSILON:
+			add_constant_force(Vector2.RIGHT * horizontalForce)
+		if abs(verticalForce) > Constants.EPSILON:
+			add_constant_force(Vector2.UP * verticalForce)
 
 func detect_wall():
 	var collider = NodeHelpers.get_child_of_type(self, CollisionShape2D)
 	collider_bounds = collider.shape.get_rect()
 	var global_right = Node2DHelpers.get_global_right(self)
 	var global_up = Node2DHelpers.get_global_up(self)
-	print_debug("pos: ", global_position, " right: ", global_right, " up: ", global_up, "size: ", collider_bounds)
+	# print_debug("pos: ", global_position, " right: ", global_right, " up: ", global_up, "size: ", collider_bounds)
 
 	var rightRayBot = PhysicsRayQueryParameters2D.new()
 	rightRayBot.from = global_position + global_right * (collider_bounds.size.x / 2 + rightDetectOffset) + -global_up * (bottomDetectOffset  + sideDetectVerticalOffset)
