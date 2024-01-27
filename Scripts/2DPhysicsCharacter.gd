@@ -147,9 +147,9 @@ func move_character(delta):
 		DebugDraw.set_text("HorizontalForce:", horizontalForce)
 		DebugDraw.set_text("VerticalForce:", verticalForce)
 		if abs(horizontalForce) > Constants.EPSILON:
-			add_constant_force(Vector2.RIGHT * horizontalForce)
+			apply_central_force(Vector2.RIGHT * horizontalForce)
 		if abs(verticalForce) > Constants.EPSILON:
-			add_constant_force(Vector2.UP * verticalForce)
+			apply_central_force(Vector2.UP * verticalForce)
 
 func detect_wall():
 	var collider = NodeHelpers.get_child_of_type(self, CollisionShape2D)
