@@ -1,11 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvxgay00f88ty"]
+[gd_scene load_steps=7 format=3 uid="uid://cvxgay00f88ty"]
 
 [ext_resource type="Script" path="res://Scripts/2DPhysicsCharacter.gd" id="1_8ac0o"]
-[ext_resource type="Texture2D" uid="uid://dgeow151mkco3" path="res://Textures/IntestineBG.png" id="2_aqvgt"]
 [ext_resource type="PackedScene" uid="uid://12r3g7c3ha4p" path="res://Scenes/n20_character.tscn" id="2_jdmvh"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_y3bnt"]
-size = Vector2(128, 20)
+[ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="3_6dot2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a6826"]
 size = Vector2(20, 60)
@@ -17,21 +14,11 @@ size = Vector2(20, 60)
 radius = 2.0
 height = 10.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_787y5"]
-size = Vector2(128, -72)
-
 [node name="Node2D" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -16.25)
 zoom = Vector2(8, 8)
-
-[node name="StaticBody2D (ground)" type="StaticBody2D" parent="."]
-position = Vector2(0, 10)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D (ground)"]
-position = Vector2(-7, 0)
-shape = SubResource("RectangleShape2D_y3bnt")
 
 [node name="StaticBody2D (wall)" type="StaticBody2D" parent="."]
 position = Vector2(20, -10)
@@ -42,8 +29,10 @@ shape = SubResource("RectangleShape2D_a6826")
 [node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D (wall)"]
 mesh = SubResource("QuadMesh_356k2")
 
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D (wall)"]
+
 [node name="PhysicsCharacter2D" type="RigidBody2D" parent="."]
-position = Vector2(0, -20)
+position = Vector2(0, -40)
 lock_rotation = true
 script = ExtResource("1_8ac0o")
 walkSpeed = 50.0
@@ -64,8 +53,4 @@ scale = Vector2(0.09, 0.09)
 position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_xsgm4")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-z_index = -1
-position = Vector2(-7, -21)
-mesh = SubResource("QuadMesh_787y5")
-texture = ExtResource("2_aqvgt")
+[node name="intestine_ground" parent="." instance=ExtResource("3_6dot2")]
