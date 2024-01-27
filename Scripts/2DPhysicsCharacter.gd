@@ -1,19 +1,23 @@
 extends RigidBody2D
+class_name PhysicsCharacter2D
 
 class InputData:
-  var horizontal: float
-  var vertical: float
-  var jump: bool
-  var sprint: bool
+	var horizontal: float
+	var vertical: float
+	var jump: bool
+	var sprint: bool
 class PhysicalData:
-  var velocity: Vector2
-  var leftWall: CollisionShape2D
-  var rightWall: CollisionShape2D
-  var topWall: CollisionShape2D
-  var botWall: CollisionShape2D
+	var velocity: Vector2
+	var leftWall: CollisionObject2D
+	var rightWall: CollisionObject2D
+	var topWall: CollisionObject2D
+	var botWall: CollisionObject2D
 
 enum SpecificState { IdleLeft, IdleRight, WalkLeft, WalkRight, RunLeft, RunRight, JumpFaceLeft, JumpFaceRight, JumpMoveLeft, JumpMoveRight, FallFaceLeft, FallFaceRight, FallMoveLeft, FallMoveRight, ClimbLeftIdle, ClimbLeftUp, ClimbLeftDown, ClimbRightIdle, ClimbRightUp, ClimbRightDown, ClimbTopIdleLeft, ClimbTopIdleRight, ClimbTopMoveLeft, ClimbTopMoveRight }
 enum AnimeState { Idle, Walk, Run, Jump, AirFall, Land, TopClimb, TopClimbIdle, SideClimb, SideClimbIdle }
+
+func _init():
+	currentPhysicals = PhysicalData.new()
 
 var currentInput: InputData
 var prevInput: InputData
@@ -41,62 +45,80 @@ var invertFlip: bool
 @export var sideDetectVerticalOffset: float
 @export var verticalDetectSideOffset: float
 
-@export var debugWallRays: bool = true
-var colliderBounds: Rect2
+@export var debug_wall_rays: bool = true
+var collider_bounds: Rect2
 
 var otherObjectVelocity: Vector2
 var otherObjectPrevVelocity: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  pass # Replace with function body.
-
+	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-  currentPhysicals.velocity = linear_velocity
+	# currentPhysicals.velocity = linear_velocity
+	detect_wall()
 
-# func detect_wall()
-#   colliderBounds = transform.GetTotalBounds(Space.Self, true);
+func detect_wall():
+	var collider = NodeHelpers.get_child_of_type(self, CollisionShape2D)
+	collider_bounds = collider.shape.get_rect()
+	if debug_wall_rays:
+		DebugDraw.draw_box(Vector3(global_position.x, global_position.y, 0), Vector3(collider_bounds.size.x, collider_bounds.size.y, 0), Color.GREEN)
+	var global_right = Node2DHelpers.get_global_right(self)
+	var global_up = Node2DHelpers.get_global_up(self)
 
-#   var rightRayBot = new Ray2D(transform.position + transform.right * (colliderBounds.size.x / 2 + rightDetectOffset) + -transform.up * (bottomDetectOffset  + sideDetectVerticalOffset), transform.right);
-#   var rightRayCenter = new Ray2D(transform.position + transform.up * (colliderBounds.extents.y) + transform.right * (colliderBounds.extents.x + rightDetectOffset), transform.right);
-#   var rightRayTop = new Ray2D(transform.position + transform.up * (colliderBounds.size.y + topDetectOffset + sideDetectVerticalOffset) + transform.right * (colliderBounds.size.x / 2 + rightDetectOffset), transform.right);
-#   currentPhysicals.rightWall = WallCast(debugWallRays, wallMask, rightRayTop, rightRayCenter, rightRayBot);
+	var rightRayBot = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + global_right * (collider_bounds.size.x / 2 + rightDetectOffset) + -global_up * (bottomDetectOffset  + sideDetectVerticalOffset)
+	rightRayBot.to = global_right
+	var rightRayCenter = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + global_right * (collider_bounds.size.y / 2) + global_right * (collider_bounds.size.x / 2 + rightDetectOffset)
+	rightRayBot.to = global_right
+	var rightRayTop = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + global_right * (collider_bounds.size.y + topDetectOffset + sideDetectVerticalOffset) + global_right * (collider_bounds.size.x / 2 + rightDetectOffset)
+	rightRayBot.to = global_right
+	currentPhysicals.rightWall = wall_cast(debug_wall_rays, wallMask, [rightRayTop, rightRayCenter, rightRayBot])
 
-#   var leftRayBot = new Ray2D(transform.position + -transform.right * (colliderBounds.size.x / 2 + leftDetectOffset) + -transform.up * (bottomDetectOffset + sideDetectVerticalOffset), -transform.right);
-#   var leftRayCenter = new Ray2D(transform.position + transform.up * (colliderBounds.extents.y) + -transform.right * (colliderBounds.extents.x + leftDetectOffset), -transform.right);
-#   var leftRayTop = new Ray2D(transform.position + transform.up * (colliderBounds.size.y + topDetectOffset + sideDetectVerticalOffset) + -transform.right * (colliderBounds.size.x / 2 + leftDetectOffset), -transform.right);
-#   currentPhysicals.leftWall = WallCast(debugWallRays, wallMask, leftRayTop, leftRayCenter, leftRayBot);
+	var leftRayBot = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + -global_right * (collider_bounds.size.x / 2 + leftDetectOffset) + -global_up * (bottomDetectOffset + sideDetectVerticalOffset)
+	rightRayBot.to = -global_right
+	var leftRayCenter = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + global_right * (collider_bounds.size.y / 2) + -global_right * (collider_bounds.size.x / 2 + leftDetectOffset)
+	rightRayBot.to = -global_right
+	var leftRayTop = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + global_right * (collider_bounds.size.y + topDetectOffset + sideDetectVerticalOffset) + -global_right * (collider_bounds.size.x / 2 + leftDetectOffset)
+	rightRayBot.to = -global_right
+	currentPhysicals.leftWall = wall_cast(debug_wall_rays, wallMask, [leftRayTop, leftRayCenter, leftRayBot])
 
-#   var topRightRay = new Ray2D(transform.position + transform.up * (colliderBounds.size.y + topDetectOffset) + transform.right * (colliderBounds.extents.x + rightDetectOffset + verticalDetectSideOffset), transform.up);
-#   var topCenterRay = new Ray2D(transform.position + transform.up * (colliderBounds.size.y + topDetectOffset), transform.up);
-#   var topLeftRay = new Ray2D(transform.position + transform.up * (colliderBounds.size.y + topDetectOffset) + -transform.right * (colliderBounds.extents.x + leftDetectOffset + verticalDetectSideOffset), transform.up);
-#   currentPhysicals.topWall = WallCast(debugWallRays, ceilingMask, topLeftRay, topCenterRay, topRightRay);
+	var topRightRay = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + global_right * (collider_bounds.size.y + topDetectOffset) + global_right * (collider_bounds.size.x / 2 + rightDetectOffset + verticalDetectSideOffset)
+	rightRayBot.to = global_up
+	var topCenterRay = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + global_right * (collider_bounds.size.y + topDetectOffset)
+	rightRayBot.to = global_up
+	var topLeftRay = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + global_right * (collider_bounds.size.y + topDetectOffset) + -global_right * (collider_bounds.size.x / 2 + leftDetectOffset + verticalDetectSideOffset)
+	rightRayBot.to = global_up
+	currentPhysicals.topWall = wall_cast(debug_wall_rays, ceilingMask, [topLeftRay, topCenterRay, topRightRay])
 
-#   var botRightRay = new Ray2D(transform.position + transform.right * (colliderBounds.extents.x + rightDetectOffset + verticalDetectSideOffset) + -transform.up * (bottomDetectOffset), -transform.up);
-#   var botCenterRay = new Ray2D(transform.position + -transform.up * (bottomDetectOffset), -transform.up);
-#   var botLeftRay = new Ray2D(transform.position + -transform.right * (colliderBounds.extents.x + leftDetectOffset + verticalDetectSideOffset) + -transform.up * (bottomDetectOffset), -transform.up);
-#   currentPhysicals.botWall = WallCast(debugWallRays, groundMask, botLeftRay, botCenterRay, botRightRay);
-func wall_cast(debug: bool, mask: int, rays: Array[PhysicsRayQueryParameters2D]) -> CollisionShape2D:
-  var wall_hit: CollisionShape2D
-  for current_ray in rays:
-    var space_state = get_world_2d().direct_space_state
-    var result = space_state.intersect_ray(current_ray)
-    if result:
-      wall_hit = result.collider
-      break
-  return wall_hit
-  # Collider2D wallHit = null;
-  # foreach (var rightRay in rays)
-  # {
-  #     var rightHitInfo = Physics2D.Raycast(rightRay.origin, rightRay.direction, wallDetectionDistance, mask);
-  #     if (debug)
-  #         Debug.DrawRay(rightRay.origin, rightRay.direction * wallDetectionDistance, rightHitInfo.transform != null ? Color.green : Color.red);
-  #     if (rightHitInfo)
-  #     {
-  #         wallHit = rightHitInfo.collider;
-  #         break;
-  #     }
-  # }
-  # return wallHit;
+	var botRightRay = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + global_right * (collider_bounds.size.x / 2 + rightDetectOffset + verticalDetectSideOffset) + -global_up * (bottomDetectOffset)
+	rightRayBot.to = -global_up
+	var botCenterRay = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + -global_right * (bottomDetectOffset)
+	rightRayBot.to = -global_up
+	var botLeftRay = PhysicsRayQueryParameters2D.new()
+	rightRayBot.from = global_position + -global_right * (collider_bounds.size.x / 2 + leftDetectOffset + verticalDetectSideOffset) + -global_up * (bottomDetectOffset)
+	rightRayBot.to = -global_up
+	currentPhysicals.botWall = wall_cast(debug_wall_rays, groundMask, [botLeftRay, botCenterRay, botRightRay])
+func wall_cast(debug: bool, mask: int, rays: Array[PhysicsRayQueryParameters2D]) -> CollisionObject2D:
+	var wall_hit: CollisionObject2D
+	for current_ray in rays:
+		var space_state = get_world_2d().direct_space_state
+		var result = space_state.intersect_ray(current_ray)
+		if debug:
+			DebugDraw.draw_ray_3d(Vector3(current_ray.from.x, current_ray.from.y, 0), Vector3(current_ray.to.x, current_ray.to.y, 0), wallDetectionDistance, Color.GREEN if result else Color.RED)
+		if result:
+			wall_hit = result.collider
+			break
+	return wall_hit
