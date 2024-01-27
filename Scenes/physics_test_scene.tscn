@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvxgay00f88ty"]
+[gd_scene load_steps=11 format=3 uid="uid://cvxgay00f88ty"]
 
 [ext_resource type="Script" path="res://Scripts/2DPhysicsCharacter.gd" id="1_8ac0o"]
+[ext_resource type="Texture2D" uid="uid://dgeow151mkco3" path="res://Textures/IntestineBG.png" id="2_aqvgt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y3bnt"]
 size = Vector2(100, 20)
@@ -25,9 +26,13 @@ height = 10.0
 radius = 2.0
 height = 10.0
 
+[sub_resource type="QuadMesh" id="QuadMesh_787y5"]
+size = Vector2(128, -72)
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -5)
 zoom = Vector2(5, 5)
 
 [node name="StaticBody2D (ground)" type="StaticBody2D" parent="."]
@@ -57,7 +62,6 @@ runSeed = 80.0
 climbSpeed = 50.0
 walkJumpSpeed = 50.0
 runJumpSpeed = 40.0
-addedFallAcceleration = 0.0
 wallDetectionDistance = 2.0
 leftDetectOffset = -1.0
 rightDetectOffset = -1.0
@@ -71,3 +75,9 @@ shape = SubResource("CapsuleShape2D_xsgm4")
 [node name="MeshInstance2D" type="MeshInstance2D" parent="PhysicsCharacter2D"]
 position = Vector2(0, -5)
 mesh = SubResource("CapsuleMesh_6e1m7")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+z_index = -1
+position = Vector2(-7, -32)
+mesh = SubResource("QuadMesh_787y5")
+texture = ExtResource("2_aqvgt")
