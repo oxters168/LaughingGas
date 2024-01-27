@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://12r3g7c3ha4p"]
 
-[ext_resource type="Texture2D" uid="uid://behcq3qunckdk" path="res://Dr_N2O_right_foot.png" id="1_q56et"]
-[ext_resource type="Texture2D" uid="uid://b23jtmnepnv3u" path="res://Dr_N2O_right_arm.png" id="2_w7fv7"]
-[ext_resource type="Texture2D" uid="uid://bv1y3yeoy80bl" path="res://Dr_N2O_body_only.png" id="3_dr4hm"]
-[ext_resource type="Texture2D" uid="uid://dihsvtw0ikcip" path="res://Dr_N2O_head_only.png" id="4_181g4"]
+[ext_resource type="Texture2D" uid="uid://behcq3qunckdk" path="res://Textures/Dr_N2O_right_foot.png" id="1_q56et"]
+[ext_resource type="Texture2D" uid="uid://b23jtmnepnv3u" path="res://Textures/Dr_N2O_right_arm.png" id="2_w7fv7"]
+[ext_resource type="Texture2D" uid="uid://bv1y3yeoy80bl" path="res://Textures/Dr_N2O_body_only.png" id="3_dr4hm"]
+[ext_resource type="Texture2D" uid="uid://dihsvtw0ikcip" path="res://Textures/Dr_N2O_head_only.png" id="4_181g4"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -62,7 +62,7 @@ bones = ["hip", PackedFloat32Array(0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0), "hip/body",
 [node name="Skeleton2D" type="Skeleton2D" parent="."]
 
 [node name="hip" type="Bone2D" parent="Skeleton2D"]
-position = Vector2(20, 88)
+position = Vector2(-2, -23)
 rotation = -1.5717
 rest = Transform2D(-0.000902935, -1, 1, -0.000902935, 20, 88)
 

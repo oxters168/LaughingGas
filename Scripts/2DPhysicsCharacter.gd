@@ -67,6 +67,7 @@ func _physics_process(delta):
 	retrieve_surrounding_velocity()
 	move_character(delta)
 	prevInput = currentInput
+	DebugDraw.set_text("PhysicsDelta", delta)
 
 func _input(_event):
 	var input_vector = Input.get_vector("move_hor_neg", "move_hor_pos", "move_ver_neg", "move_ver_pos")
@@ -133,7 +134,7 @@ func move_character(delta):
 					verticalSpeed = -runJumpSpeed
 				else:
 					verticalSpeed = -walkJumpSpeed
-
+			
 			verticalForce = PhysicsHelpers.calculate_required_force_for_speed_1d(mass, linear_velocity.y, (otherObjectVelocity.y + otherObjectPredictedVelocity.y) + verticalSpeed, delta, true)
 
 		# Added weight when falling for better feel

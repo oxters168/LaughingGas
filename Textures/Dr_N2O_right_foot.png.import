@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nbk7qb4meb5"
-path="res://.godot/imported/Dr_N2O_left_arm.png-fbd9224bcaff98c70caef0f6049a3806.ctex"
+uid="uid://behcq3qunckdk"
+path="res://.godot/imported/Dr_N2O_right_foot.png-43a51de73d314bee6ae4568c74045870.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Dr_N2O_left_arm.png"
-dest_files=["res://.godot/imported/Dr_N2O_left_arm.png-fbd9224bcaff98c70caef0f6049a3806.ctex"]
+source_file="res://Textures/Dr_N2O_right_foot.png"
+dest_files=["res://.godot/imported/Dr_N2O_right_foot.png-43a51de73d314bee6ae4568c74045870.ctex"]
 
 [params]
 
