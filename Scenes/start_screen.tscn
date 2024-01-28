@@ -1,0 +1,45 @@
+[gd_scene load_steps=11 format=3 uid="uid://bpyq75xnw33pb"]
+
+[ext_resource type="Texture2D" uid="uid://crcwukp8qlosd" path="res://Textures/Title Screen.png" id="1_44wj1"]
+[ext_resource type="Script" path="res://Scripts/StartScreen.gd" id="1_t2aqy"]
+[ext_resource type="PackedScene" uid="uid://wafaennscffn" path="res://Scenes/level_1.tscn" id="2_411wt"]
+[ext_resource type="Texture2D" uid="uid://celjfvd2toben" path="res://Textures/Start Button.png" id="2_lldwu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_782ro"]
+texture = ExtResource("2_lldwu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pnme1"]
+texture = ExtResource("2_lldwu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n3ugs"]
+texture = ExtResource("2_lldwu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xo6pj"]
+texture = ExtResource("2_lldwu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vrvva"]
+texture = ExtResource("2_lldwu")
+
+[sub_resource type="Theme" id="Theme_ficeu"]
+Button/styles/disabled = SubResource("StyleBoxTexture_782ro")
+Button/styles/focus = SubResource("StyleBoxTexture_pnme1")
+Button/styles/hover = SubResource("StyleBoxTexture_n3ugs")
+Button/styles/normal = SubResource("StyleBoxTexture_xo6pj")
+Button/styles/pressed = SubResource("StyleBoxTexture_vrvva")
+
+[node name="StartScreen" type="Node2D" node_paths=PackedStringArray("start_btn")]
+script = ExtResource("1_t2aqy")
+start_btn = NodePath("Sprite2D/Button")
+first_level = ExtResource("2_411wt")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("1_44wj1")
+
+[node name="Button" type="Button" parent="Sprite2D"]
+offset_left = -183.333
+offset_top = -5.55559
+offset_right = 156.667
+offset_bottom = 125.444
+theme = SubResource("Theme_ficeu")

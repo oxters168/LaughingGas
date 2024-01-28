@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://wb0rhmk7q76o"]
+
+[ext_resource type="Texture2D" uid="uid://do2qdrvun4s5r" path="res://Textures/Victory_Screen_copy.png" id="1_w4fyl"]
+
+[node name="WinScene" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(575, 324)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("1_w4fyl")

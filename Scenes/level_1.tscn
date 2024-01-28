@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://wafaennscffn"]
+[gd_scene load_steps=20 format=3 uid="uid://wafaennscffn"]
 
 [ext_resource type="Script" path="res://Scripts/PlayableLevel.gd" id="1_b2wlw"]
 [ext_resource type="PackedScene" uid="uid://chkb7l3wc7oy5" path="res://Prefabs/physics_character_2d.tscn" id="1_gywtk"]
@@ -10,10 +10,13 @@
 [ext_resource type="Script" path="res://Scripts/PathNodes2D.gd" id="6_h7buk"]
 [ext_resource type="SpriteFrames" uid="uid://bp4ddyva3blnq" path="res://Assets/TestArt/2d_animation_frog_spritesheet_from_godot_doc_frames.tres" id="6_hm4ht"]
 [ext_resource type="Script" path="res://Scripts/PathNode2D.gd" id="6_lrcnm"]
+[ext_resource type="PackedScene" uid="uid://wb0rhmk7q76o" path="res://Scenes/win_scene.tscn" id="8_r2623"]
 [ext_resource type="Script" path="res://Scripts/Endoscope.gd" id="9_a2djt"]
 [ext_resource type="SpriteFrames" uid="uid://cjgevqiove82s" path="res://Assets/Art/endoscope.tres" id="10_b7awf"]
 [ext_resource type="Script" path="res://Scripts/FailArea.gd" id="11_psmji"]
 [ext_resource type="AudioStream" uid="uid://bvgiet0xaq8sw" path="res://Audio/Stage_1_-_Intestines_BGM.mp3" id="12_4w2ol"]
+[ext_resource type="Script" path="res://Scripts/SecretLevelLoader.gd" id="15_djolx"]
+[ext_resource type="PackedScene" uid="uid://7ugpykriseom" path="res://Scenes/level_2.tscn" id="16_rchnd"]
 
 [sub_resource type="Curve2D" id="Curve2D_g2tdv"]
 
@@ -24,7 +27,9 @@ size = Vector2(85, 51)
 script = ExtResource("1_b2wlw")
 
 [node name="PhysicsCharacter2D" parent="." instance=ExtResource("1_gywtk")]
-position = Vector2(114, -7)
+position = Vector2(220, -7)
+walkJumpSpeed = 150.0
+runJumpSpeed = 120.0
 
 [node name="PlayerCamera2D" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_x2uuy")]
 player = NodePath("../PhysicsCharacter2D")
@@ -220,10 +225,253 @@ position = Vector2(25, -215)
 rotation = -3.00197
 scale = Vector2(0.65, 0.65)
 
+[node name="Polyp22" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-261, -241)
+rotation = -1.59126
+scale = Vector2(2, 2)
+
+[node name="Polyp23" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-192, -282)
+rotation = 1.56989
+scale = Vector2(1.8, 1.8)
+
+[node name="Polyp24" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-162, -282)
+scale = Vector2(2.5, 2.5)
+
+[node name="Polyp25" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-201, -352)
+
+[node name="Polyp26" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-168, -288)
+rotation = 3.14159
+scale = Vector2(2, 2)
+
+[node name="Polyp27" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-187, -289)
+rotation = 2.88339
+
+[node name="Polyp28" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-147, -289)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp29" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-141, -289)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp30" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-135, -289)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp31" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-129, -289)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp32" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-123, -289)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp33" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-117, -289)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp34" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-79.4247, -228.664)
+rotation = 3.08075
+scale = Vector2(0.027, 0.027)
+
+[node name="Polyp35" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-111, -289)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp36" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-106, -289)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp37" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(122, -421)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp38" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(128, -420)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp39" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(134, -420)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp40" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(140, -420)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp41" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(146, -420)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp42" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(152, -420)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp43" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(158, -420)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp44" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(163, -420)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp45" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(169, -422)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp46" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(175, -421)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp47" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(181, -421)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp48" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(187, -421)
+rotation = 0.0217299
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp49" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(191, -359)
+rotation = -1.62908
+
+[node name="Polyp50" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(149, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp51" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(155, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp52" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(161, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp53" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(167, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp54" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(173, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp55" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(179, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp56" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(216.575, -303.664)
+rotation = 3.08075
+scale = Vector2(0.027, 0.027)
+
+[node name="Polyp57" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(185, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp58" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(190, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp60" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(122, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp61" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(128, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp62" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(134, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp63" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(171.575, -303.664)
+rotation = 3.08075
+scale = Vector2(0.027, 0.027)
+
+[node name="Polyp64" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(140, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp65" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(145, -364)
+rotation = 3.12131
+scale = Vector2(0.3, 0.3)
+
+[node name="Polyp66" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-65, -289)
+rotation = 3.14017
+
+[node name="Polyp67" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-37, -291)
+rotation = -3.13481
+scale = Vector2(2, 2)
+
+[node name="Polyp68" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-13, -292)
+rotation = -2.72157
+scale = Vector2(2.4, 2.4)
+
+[node name="Polyp69" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(128, -288)
+rotation = 3.14159
+scale = Vector2(2.4, 2.4)
+
+[node name="Polyp70" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(27, -289)
+rotation = 3.03687
+
+[node name="Polyp71" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(100, -288)
+rotation = 2.96379
+
+[node name="Polyp59" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(50, -351)
+rotation = 0.0980062
+scale = Vector2(1, 1)
+
 [node name="intestine_exit" parent="." instance=ExtResource("4_7y6ik")]
 position = Vector2(85, -360)
 rotation = 3.14159
 scale = Vector2(1, -1)
+next_scene = ExtResource("8_r2623")
 
 [node name="PathNodes2D" type="Path2D" parent="." node_paths=PackedStringArray("path_nodes")]
 curve = SubResource("Curve2D_g2tdv")
@@ -318,243 +566,6 @@ script = ExtResource("6_lrcnm")
 stream = ExtResource("12_4w2ol")
 autoplay = true
 
-[node name="Polyp" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-261, -241)
-rotation = -1.59126
-scale = Vector2(2, 2)
-
-[node name="Polyp2" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-192, -282)
-rotation = 1.56989
-scale = Vector2(1.8, 1.8)
-
-[node name="Polyp3" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-162, -282)
-scale = Vector2(2.5, 2.5)
-
-[node name="Polyp4" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-201, -352)
-
-[node name="Polyp5" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-168, -288)
-rotation = 3.14159
-scale = Vector2(2, 2)
-
-[node name="Polyp6" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-187, -289)
-rotation = 2.88339
-
-[node name="Polyp7" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-147, -289)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp8" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-141, -289)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp9" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-135, -289)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp10" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-129, -289)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp11" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-123, -289)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp12" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-117, -289)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp15" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-79.4247, -228.664)
-rotation = 3.08075
-scale = Vector2(0.027, 0.027)
-
-[node name="Polyp13" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-111, -289)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp17" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-106, -289)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp25" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(122, -421)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp26" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(128, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp27" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(134, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp28" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(140, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp29" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(146, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp30" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(152, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp31" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(158, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp32" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(163, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp33" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(169, -422)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp34" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(175, -421)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp35" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(181, -421)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp36" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(187, -421)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp39" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(191, -359)
-rotation = -1.62908
-
-[node name="Polyp14" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(149, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp49" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(155, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp50" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(161, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp51" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(167, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp52" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(173, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp53" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(179, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp54" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(216.575, -303.664)
-rotation = 3.08075
-scale = Vector2(0.027, 0.027)
-
-[node name="Polyp55" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(185, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp56" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(190, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp60" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(122, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp61" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(128, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp62" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(134, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp63" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(171.575, -303.664)
-rotation = 3.08075
-scale = Vector2(0.027, 0.027)
-
-[node name="Polyp64" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(140, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp65" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(145, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp66" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-65, -289)
-rotation = 3.14017
-
-[node name="Polyp67" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-37, -291)
-rotation = -3.13481
-scale = Vector2(2, 2)
-
-[node name="Polyp68" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(-13, -292)
-rotation = -2.72157
-scale = Vector2(2.4, 2.4)
-
-[node name="Polyp69" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(128, -288)
-rotation = 3.14159
-scale = Vector2(2.4, 2.4)
-
-[node name="Polyp70" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(27, -289)
-rotation = 3.03687
-
-[node name="Polyp71" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(100, -288)
-rotation = 2.96379
-
-[node name="Polyp40" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(50, -351)
-rotation = 0.0980062
+[node name="SecretLevelLoader" type="Node2D" parent="."]
+script = ExtResource("15_djolx")
+secret_level = ExtResource("16_rchnd")
