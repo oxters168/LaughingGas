@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/PlayableLevel.gd" id="1_b2wlw"]
 [ext_resource type="PackedScene" uid="uid://chkb7l3wc7oy5" path="res://Prefabs/physics_character_2d.tscn" id="1_gywtk"]
 [ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="2_5ixff"]
-[ext_resource type="PackedScene" uid="uid://dlalilgk1qkyl" path="res://player_camera_2d.tscn" id="2_x2uuy"]
+[ext_resource type="PackedScene" path="res://player_camera_2d.tscn" id="2_x2uuy"]
 [ext_resource type="PackedScene" uid="uid://c5dowlm0wh0qj" path="res://Prefabs/intestine_wall.tscn" id="3_d50sy"]
 [ext_resource type="PackedScene" uid="uid://bm3onxtde52mv" path="res://Prefabs/intestine_exit.tscn" id="4_7y6ik"]
 [ext_resource type="PackedScene" uid="uid://drn5tl62f2xsb" path="res://Prefabs/polyp.tscn" id="5_v43bx"]

@@ -14,8 +14,8 @@ script = ExtResource("1_l2by1")
 walkSpeed = 50.0
 runSeed = 80.0
 climbSpeed = 50.0
-walkJumpSpeed = 200.0
-runJumpSpeed = 200.0
+walkJumpSpeed = 150.0
+runJumpSpeed = 120.0
 addedFallAcceleration = 0.0
 wallDetectionDistance = 2.0
 animation_player = NodePath("Node2D/AnimationPlayer")
@@ -24,6 +24,7 @@ leftDetectOffset = -1.0
 rightDetectOffset = -1.0
 topDetectOffset = -1.0
 bottomDetectOffset = -1.0
+debug_wall_rays = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
