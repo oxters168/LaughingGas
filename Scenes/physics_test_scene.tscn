@@ -1,56 +1,36 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvxgay00f88ty"]
+[gd_scene load_steps=4 format=3 uid="uid://cvxgay00f88ty"]
 
-[ext_resource type="Script" path="res://Scripts/2DPhysicsCharacter.gd" id="1_8ac0o"]
-[ext_resource type="PackedScene" uid="uid://12r3g7c3ha4p" path="res://Prefabs/n20_character.tscn" id="2_jdmvh"]
+[ext_resource type="PackedScene" uid="uid://chkb7l3wc7oy5" path="res://Prefabs/physics_character_2d.tscn" id="1_iii1a"]
 [ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="3_6dot2"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a6826"]
-size = Vector2(20, 60)
-
-[sub_resource type="QuadMesh" id="QuadMesh_356k2"]
-size = Vector2(20, 60)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xsgm4"]
-radius = 2.0
-height = 10.0
+[ext_resource type="PackedScene" uid="uid://c5dowlm0wh0qj" path="res://Prefabs/intestine_wall.tscn" id="4_g8sbj"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -16.25)
-zoom = Vector2(8, 8)
-
-[node name="StaticBody2D (wall)" type="StaticBody2D" parent="."]
-position = Vector2(20, -10)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D (wall)"]
-shape = SubResource("RectangleShape2D_a6826")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D (wall)"]
-mesh = SubResource("QuadMesh_356k2")
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D (wall)"]
-
-[node name="PhysicsCharacter2D" type="RigidBody2D" parent="."]
-position = Vector2(0, -40)
-lock_rotation = true
-script = ExtResource("1_8ac0o")
-walkSpeed = 50.0
-runSeed = 80.0
-climbSpeed = 50.0
-walkJumpSpeed = 150.0
-runJumpSpeed = 120.0
-wallDetectionDistance = 2.0
-leftDetectOffset = -1.0
-rightDetectOffset = -1.0
-topDetectOffset = -1.0
-bottomDetectOffset = -1.0
-
-[node name="n20_character" parent="PhysicsCharacter2D" instance=ExtResource("2_jdmvh")]
-scale = Vector2(0.09, 0.09)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicsCharacter2D"]
-position = Vector2(0, -5)
-shape = SubResource("CapsuleShape2D_xsgm4")
+[node name="physics_character_2d" parent="." instance=ExtResource("1_iii1a")]
+position = Vector2(0, -11.12)
 
 [node name="intestine_ground" parent="." instance=ExtResource("3_6dot2")]
+
+[node name="intestine_ground2" parent="." instance=ExtResource("3_6dot2")]
+position = Vector2(128, 0)
+
+[node name="intestine_ground3" parent="." instance=ExtResource("3_6dot2")]
+position = Vector2(128, -72)
+
+[node name="intestine_ground4" parent="." instance=ExtResource("3_6dot2")]
+position = Vector2(128, -144)
+
+[node name="intestine_ground5" parent="." instance=ExtResource("3_6dot2")]
+position = Vector2(0, -72)
+
+[node name="intestine_ground6" parent="." instance=ExtResource("3_6dot2")]
+position = Vector2(0, -144)
+
+[node name="intestine_wall" parent="." instance=ExtResource("4_g8sbj")]
+position = Vector2(232, -70)
+
+[node name="intestine_wall2" parent="." instance=ExtResource("4_g8sbj")]
+position = Vector2(-104, -142)
+scale = Vector2(-1, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]

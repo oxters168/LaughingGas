@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5dowlm0wh0qj"]
+
+[ext_resource type="Texture2D" uid="uid://boh2p0rbti302" path="res://Textures/IntSide.png" id="1_t7x5m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_30g4c"]
+size = Vector2(140, 11)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b4fyk"]
+size = Vector2(20, 247)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5sxnl"]
+size = Vector2(156, 12)
+
+[node name="intestine_wall" type="StaticBody2D"]
+position = Vector2(256, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 75)
+shape = SubResource("RectangleShape2D_30g4c")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(38, -8.5)
+shape = SubResource("RectangleShape2D_b4fyk")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(5, -69)
+shape = SubResource("RectangleShape2D_5sxnl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, 1)
+scale = Vector2(0.112, 0.112)
+texture = ExtResource("1_t7x5m")

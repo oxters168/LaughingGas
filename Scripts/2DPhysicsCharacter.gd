@@ -60,6 +60,7 @@ func _process(_delta):
 	currentPhysicals.velocity = linear_velocity
 	DebugDraw.set_text("Velocity", Vector2(MathHelpers.to_decimal_places(currentPhysicals.velocity.x, 2), MathHelpers.to_decimal_places(currentPhysicals.velocity.y, 2)))
 	DebugDraw.set_text("CurrentState", SpecificState.keys()[currentState])
+	DebugDraw.set_text("Position", position)
 	detect_wall()
 	tick_state()
 	apply_animation()
