@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://7ugpykriseom"]
+
+[ext_resource type="Texture2D" uid="uid://2yhs5lg4ejsp" path="res://Textures/stomach.png" id="1_xskp6"]
+[ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="2_fd7gc"]
+[ext_resource type="PackedScene" uid="uid://chkb7l3wc7oy5" path="res://Prefabs/physics_character_2d.tscn" id="3_vg7dc"]
+[ext_resource type="Script" path="res://Scripts/PlayerCamera2D.gd" id="4_t5pvh"]
+[ext_resource type="AudioStream" uid="uid://ckpn2eyatluef" path="res://Audio/Lava_Stage_Stomach_BGM.mp3" id="5_qwcw7"]
+
+[node name="Level2" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -3
+position = Vector2(0, -540)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_xskp6")
+
+[node name="intestine_ground" parent="." instance=ExtResource("2_fd7gc")]
+position = Vector2(256, 0)
+
+[node name="PhysicsCharacter2D" parent="." instance=ExtResource("3_vg7dc")]
+position = Vector2(260, -12)
+
+[node name="PlayerCamera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+zoom = Vector2(5, 5)
+script = ExtResource("4_t5pvh")
+player = NodePath("../PhysicsCharacter2D")
+fast_move_threshold = 50.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_qwcw7")
+autoplay = true

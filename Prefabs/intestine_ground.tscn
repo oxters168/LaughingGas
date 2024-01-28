@@ -8,7 +8,7 @@ size = Vector2(128, 11)
 [node name="intestine_ground" type="StaticBody2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
-z_index = -1
+z_index = -2
 position = Vector2(0, -25)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_kuuxg")

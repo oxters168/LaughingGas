@@ -1,15 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://wafaennscffn"]
+[gd_scene load_steps=15 format=3 uid="uid://wafaennscffn"]
 
 [ext_resource type="PackedScene" uid="uid://chkb7l3wc7oy5" path="res://Prefabs/physics_character_2d.tscn" id="1_gywtk"]
 [ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="2_5ixff"]
 [ext_resource type="PackedScene" path="res://player_camera_2d.tscn" id="2_x2uuy"]
 [ext_resource type="PackedScene" uid="uid://c5dowlm0wh0qj" path="res://Prefabs/intestine_wall.tscn" id="3_d50sy"]
+[ext_resource type="PackedScene" uid="uid://bm3onxtde52mv" path="res://Prefabs/intestine_exit.tscn" id="4_7y6ik"]
 [ext_resource type="PackedScene" uid="uid://drn5tl62f2xsb" path="res://Prefabs/polyp.tscn" id="5_v43bx"]
 [ext_resource type="Script" path="res://Scripts/PathNodes2D.gd" id="6_h7buk"]
 [ext_resource type="SpriteFrames" uid="uid://bp4ddyva3blnq" path="res://Assets/TestArt/2d_animation_frog_spritesheet_from_godot_doc_frames.tres" id="6_hm4ht"]
 [ext_resource type="Script" path="res://Scripts/PathNode2D.gd" id="6_lrcnm"]
 [ext_resource type="Script" path="res://Scripts/Endoscope.gd" id="9_a2djt"]
 [ext_resource type="SpriteFrames" uid="uid://cjgevqiove82s" path="res://Assets/Art/endoscope.tres" id="10_b7awf"]
+[ext_resource type="AudioStream" uid="uid://bvgiet0xaq8sw" path="res://Audio/Stage_1_-_Intestines_BGM.mp3" id="12_4w2ol"]
 
 [sub_resource type="Curve2D" id="Curve2D_g2tdv"]
 
@@ -62,6 +64,21 @@ position = Vector2(-128, -216)
 
 [node name="intestine_ground12" parent="ground_objs" instance=ExtResource("2_5ixff")]
 position = Vector2(-128, -288)
+
+[node name="intestine_ground15" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(-128, -360)
+
+[node name="intestine_ground17" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(0, -360)
+
+[node name="intestine_ground18" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(128, -432)
+
+[node name="intestine_ground19" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(0, -432)
+
+[node name="intestine_ground16" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(128, -360)
 
 [node name="intestine_ground13" parent="ground_objs" instance=ExtResource("2_5ixff")]
 position = Vector2(0, -288)
@@ -116,6 +133,91 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(45, -140)
 rotation = -6.36173
 scale = Vector2(2.8, 2.8)
+
+[node name="Polyp6" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-142, -103)
+rotation = -7.65327
+scale = Vector2(3, 3)
+
+[node name="Polyp7" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-62, -141)
+rotation = -4.75602
+scale = Vector2(0.7, 0.7)
+
+[node name="Polyp8" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-33, -144)
+rotation = -3.18523
+scale = Vector2(1.2, 1.2)
+
+[node name="Polyp9" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(14, -144)
+rotation = -3.05433
+scale = Vector2(1.3, 1.3)
+
+[node name="Polyp10" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(83, -143)
+rotation = -3.26377
+scale = Vector2(2, 2)
+
+[node name="Polyp11" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(68, -282)
+rotation = -5.5676
+scale = Vector2(0.6, 0.6)
+
+[node name="Polyp12" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(53, -211)
+rotation = -6.52753
+scale = Vector2(1.1, 1.1)
+
+[node name="Polyp19" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-41, -281)
+rotation = -6.42281
+scale = Vector2(1.21, 1.21)
+
+[node name="Polyp20" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-93, -283)
+rotation = -6.23083
+scale = Vector2(1.965, 1.965)
+
+[node name="Polyp21" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-101, -211)
+rotation = -3.22886
+scale = Vector2(1.175, 1.175)
+
+[node name="Polyp13" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(46, -216)
+rotation = -3.01069
+scale = Vector2(0.6, 0.6)
+
+[node name="Polyp14" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(37, -216)
+rotation = -3.23759
+scale = Vector2(0.565, 0.565)
+
+[node name="Polyp16" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(15, -215)
+rotation = -3.03687
+scale = Vector2(0.515, 0.515)
+
+[node name="Polyp17" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(5, -215)
+rotation = -3.12414
+scale = Vector2(0.555, 0.555)
+
+[node name="Polyp18" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(-13, -214)
+rotation = -3.01069
+scale = Vector2(1.295, 1.295)
+
+[node name="Polyp15" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(25, -215)
+rotation = -3.00197
+scale = Vector2(0.65, 0.65)
+
+[node name="intestine_exit" parent="." instance=ExtResource("4_7y6ik")]
+position = Vector2(85, -360)
+rotation = 3.14159
+scale = Vector2(1, -1)
 
 [node name="PathNodes2D" type="Path2D" parent="." node_paths=PackedStringArray("path_nodes")]
 curve = SubResource("Curve2D_g2tdv")
@@ -202,3 +304,7 @@ position = Vector2(227, -393)
 scale = Vector2(0.5, 0.5)
 sprite_frames = ExtResource("6_hm4ht")
 script = ExtResource("6_lrcnm")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_4w2ol")
+autoplay = true
