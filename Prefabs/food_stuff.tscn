@@ -6,7 +6,7 @@
 size = Vector2(46, 31)
 
 [node name="food_stuff" type="RigidBody2D"]
-mass = 50.0
+mass = 200.0
 gravity_scale = 0.005
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

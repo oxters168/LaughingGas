@@ -1,18 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://3wl3r6kkhxlr"]
+[gd_scene load_steps=9 format=3 uid="uid://d1c0ww254dsg1"]
 
-[ext_resource type="Texture2D" uid="uid://caa2rla0hslfl" path="res://Assets/TestArt/Fail.png" id="1_h38p1"]
+[ext_resource type="Texture2D" uid="uid://b7w0ayr7sfg86" path="res://Textures/Game Over Screen.png" id="1_adffi"]
 [ext_resource type="Script" path="res://Scripts/RestartButton.gd" id="2_3cl3j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h4wr1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_25epl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rj4ii"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mxxxf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vd4f"]
+
+[sub_resource type="Theme" id="Theme_a60uh"]
+Button/styles/disabled = SubResource("StyleBoxEmpty_h4wr1")
+Button/styles/focus = SubResource("StyleBoxEmpty_25epl")
+Button/styles/hover = SubResource("StyleBoxEmpty_rj4ii")
+Button/styles/normal = SubResource("StyleBoxEmpty_mxxxf")
+Button/styles/pressed = SubResource("StyleBoxEmpty_8vd4f")
 
 [node name="Fail" type="Node2D"]
 
 [node name="Fail" type="Sprite2D" parent="."]
-position = Vector2(339, 340)
-texture = ExtResource("1_h38p1")
+position = Vector2(575.9, 323.1)
+scale = Vector2(0.898594, 0.894167)
+texture = ExtResource("1_adffi")
 
 [node name="Button" type="Button" parent="."]
-offset_left = 376.0
-offset_top = 140.0
-offset_right = 903.0
-offset_bottom = 334.0
+offset_left = 301.0
+offset_top = 306.0
+offset_right = 828.0
+offset_bottom = 500.0
+theme = SubResource("Theme_a60uh")
 text = "Resstart Last Level"
 script = ExtResource("2_3cl3j")
