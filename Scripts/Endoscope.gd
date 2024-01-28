@@ -1,13 +1,19 @@
-extends RigidBody2D
+extends PathFollow2D
 class_name Endoscope
-@export var sprite : AnimatedSprite2D
-
-
-# Called when the node enters the scene tree for the first time.
+@onready var sprite = $AnimatedSprite2D
+@export var path_nodes : PathNodes2D
+@export var follow_velocity : float
+@onready var trigger : Area2D = $Area2D
+var path : Path2D
+#Help from: https://gamedevacademy.org/pathfollow2d-in-godot-complete-guide/
 func _ready():
-	pass # Replace with function body.
+	path = get_node("..")
+	add_child(sprite)
+	add_child(trigger)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	set_progress(get_progress() + follow_velocity * delta)
+	print(str(path.curve.point_count))
+	print(str(position))
+	#if self.h_offset >= path.curve.get_baked_length():
+		#print_debug('Endoscope the end of the path!')

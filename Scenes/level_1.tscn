@@ -1,18 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://wafaennscffn"]
+[gd_scene load_steps=13 format=3 uid="uid://wafaennscffn"]
 
 [ext_resource type="PackedScene" uid="uid://chkb7l3wc7oy5" path="res://Prefabs/physics_character_2d.tscn" id="1_gywtk"]
 [ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="2_5ixff"]
 [ext_resource type="PackedScene" uid="uid://dlalilgk1qkyl" path="res://player_camera_2d.tscn" id="2_x2uuy"]
 [ext_resource type="PackedScene" uid="uid://c5dowlm0wh0qj" path="res://Prefabs/intestine_wall.tscn" id="3_d50sy"]
 [ext_resource type="PackedScene" uid="uid://drn5tl62f2xsb" path="res://Prefabs/polyp.tscn" id="5_v43bx"]
+[ext_resource type="Script" path="res://Scripts/PathNodes2D.gd" id="6_h7buk"]
+[ext_resource type="SpriteFrames" uid="uid://bp4ddyva3blnq" path="res://Assets/TestArt/2d_animation_frog_spritesheet_from_godot_doc_frames.tres" id="6_hm4ht"]
+[ext_resource type="Script" path="res://Scripts/PathNode2D.gd" id="6_lrcnm"]
+[ext_resource type="Script" path="res://Scripts/Endoscope.gd" id="9_a2djt"]
+[ext_resource type="SpriteFrames" uid="uid://cjgevqiove82s" path="res://Assets/Art/endoscope.tres" id="10_b7awf"]
+
+[sub_resource type="Curve2D" id="Curve2D_g2tdv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3sj0"]
+size = Vector2(85, 51)
 
 [node name="Level_1" type="Node2D"]
 
 [node name="PhysicsCharacter2D" parent="." instance=ExtResource("1_gywtk")]
+position = Vector2(116.725, 0)
 
 [node name="PlayerCamera2D" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_x2uuy")]
 player = NodePath("../PhysicsCharacter2D")
-internal_bounds = Rect2(0, 0, 100, 100)
+internal_bounds = Rect2(0, 0, 100, 10)
+player_offset = Vector2(0, 0)
 reset_threshold = 50.0
 camera_velocity = 3.0
 display_camera_mode = true
@@ -107,3 +119,91 @@ scale = Vector2(0.5, 0.5)
 position = Vector2(45, -140)
 rotation = -6.36173
 scale = Vector2(2.8, 2.8)
+
+[node name="PathNodes2D" type="Path2D" parent="." node_paths=PackedStringArray("path_nodes")]
+curve = SubResource("Curve2D_g2tdv")
+script = ExtResource("6_h7buk")
+path_nodes = [NodePath("../EndoPath/0"), NodePath("../EndoPath/1"), NodePath("../EndoPath/2"), NodePath("../EndoPath/3"), NodePath("../EndoPath/4"), NodePath("../EndoPath/5"), NodePath("../EndoPath/6"), NodePath("../EndoPath/7"), NodePath("../EndoPath/8"), NodePath("../EndoPath/9"), NodePath("../EndoPath/10")]
+
+[node name="Endoscope" type="PathFollow2D" parent="PathNodes2D" node_paths=PackedStringArray("path_nodes")]
+script = ExtResource("9_a2djt")
+path_nodes = NodePath("")
+follow_velocity = 30.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathNodes2D/Endoscope"]
+scale = Vector2(0.1, 0.1)
+sprite_frames = ExtResource("10_b7awf")
+
+[node name="Area2D" type="Area2D" parent="PathNodes2D/Endoscope"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathNodes2D/Endoscope/Area2D"]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_p3sj0")
+
+[node name="EndoPath" type="Node" parent="."]
+
+[node name="0" type="AnimatedSprite2D" parent="EndoPath"]
+position = Vector2(53, -31)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_hm4ht")
+script = ExtResource("6_lrcnm")
+
+[node name="1" type="AnimatedSprite2D" parent="EndoPath"]
+position = Vector2(353, -31)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_hm4ht")
+script = ExtResource("6_lrcnm")
+
+[node name="2" type="AnimatedSprite2D" parent="EndoPath"]
+position = Vector2(363, -108)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_hm4ht")
+script = ExtResource("6_lrcnm")
+
+[node name="3" type="AnimatedSprite2D" parent="EndoPath"]
+position = Vector2(-96, -106)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_hm4ht")
+script = ExtResource("6_lrcnm")
+
+[node name="4" type="AnimatedSprite2D" parent="EndoPath"]
+position = Vector2(-97, -182)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_hm4ht")
+script = ExtResource("6_lrcnm")
+
+[node name="5" type="AnimatedSprite2D" parent="EndoPath"]
+position = Vector2(105, -180)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_hm4ht")
+script = ExtResource("6_lrcnm")
+
+[node name="6" type="AnimatedSprite2D" parent="EndoPath"]
+position = Vector2(106, -252)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_hm4ht")
+script = ExtResource("6_lrcnm")
+
+[node name="7" type="AnimatedSprite2D" parent="EndoPath"]
+position = Vector2(-224, -247)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_hm4ht")
+script = ExtResource("6_lrcnm")
+
+[node name="8" type="AnimatedSprite2D" parent="EndoPath"]
+position = Vector2(-226, -318)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_hm4ht")
+script = ExtResource("6_lrcnm")
+
+[node name="9" type="AnimatedSprite2D" parent="EndoPath"]
+position = Vector2(223, -320)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_hm4ht")
+script = ExtResource("6_lrcnm")
+
+[node name="10" type="AnimatedSprite2D" parent="EndoPath"]
+position = Vector2(227, -393)
+scale = Vector2(0.5, 0.5)
+sprite_frames = ExtResource("6_hm4ht")
+script = ExtResource("6_lrcnm")
