@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cmtfsi4x8nnur"]
+[gd_scene load_steps=10 format=3 uid="uid://ddnvt041m3ba0"]
 
 [ext_resource type="SpriteFrames" uid="uid://cjgevqiove82s" path="res://Assets/Art/endoscope.tres" id="1_bfnsp"]
 [ext_resource type="Script" path="res://Scripts/Endoscope.gd" id="1_ndlgk"]
 [ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="4_3240a"]
-[ext_resource type="PackedScene" uid="uid://12r3g7c3ha4p" path="res://Prefabs/n20_character.tscn" id="5_c7b4c"]
+[ext_resource type="PackedScene" uid="uid://ctdgk7clxk5r8" path="res://Scenes/n20_character.tscn" id="5_c7b4c"]
 [ext_resource type="Script" path="res://Scripts/PlayerCamera2D.gd" id="5_c7fom"]
 [ext_resource type="Script" path="res://Scripts/2DPhysicsCharacter.gd" id="5_n8kri"]
 
@@ -50,7 +50,6 @@ zoom = Vector2(10, 10)
 script = ExtResource("5_c7fom")
 player = NodePath("../PhysicsCharacter2D")
 internal_bounds = Rect2(0, 0, 20, 10)
-fast_move_threshold = 50.0
 
 [node name="PhysicsCharacter2D" type="RigidBody2D" parent="."]
 position = Vector2(635.273, 119.423)
