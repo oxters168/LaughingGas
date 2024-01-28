@@ -64,14 +64,14 @@ func _process(_delta):
 	detect_wall()
 	tick_state()
 	apply_animation()
-	DebugDraw.set_text("Velocity", Vector2(MathHelpers.to_decimal_places(currentPhysicals.velocity.x, 2), MathHelpers.to_decimal_places(currentPhysicals.velocity.y, 2)))
-	DebugDraw.set_text("CurrentState", SpecificState.keys()[currentState])
-	DebugDraw.set_text("Position", position)
+	#DebugDraw.set_text("Velocity", Vector2(MathHelpers.to_decimal_places(currentPhysicals.velocity.x, 2), MathHelpers.to_decimal_places(currentPhysicals.velocity.y, 2)))
+	#DebugDraw.set_text("CurrentState", SpecificState.keys()[currentState])
+	#DebugDraw.set_text("Position", position)
 func _physics_process(delta):
 	retrieve_surrounding_velocity()
 	move_character(delta)
 	prevInput = currentInput
-	DebugDraw.set_text("PhysicsDelta", delta)
+	#DebugDraw.set_text("PhysicsDelta", delta)
 
 func grab_input():
 	var input_vector = Input.get_vector("move_hor_neg", "move_hor_pos", "move_ver_neg", "move_ver_pos")
@@ -157,8 +157,8 @@ func move_character(delta):
 		if currentAnimeState == AnimeState.Jump && currentPhysicals.velocity.y > 0 && prevInput.jump && !currentInput.jump:
 			verticalForce = PhysicsHelpers.calculate_required_force_for_speed_1d(mass, linear_velocity.y, 0, delta)
 		
-		DebugDraw.set_text("HorizontalForce:", horizontalForce)
-		DebugDraw.set_text("VerticalForce:", verticalForce)
+		#DebugDraw.set_text("HorizontalForce:", horizontalForce)
+		#DebugDraw.set_text("VerticalForce:", verticalForce)
 		if abs(horizontalForce) > Constants.EPSILON:
 			apply_central_force(Vector2.RIGHT * horizontalForce)
 		if abs(verticalForce) > Constants.EPSILON:
