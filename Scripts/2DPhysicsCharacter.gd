@@ -16,14 +16,11 @@ class PhysicalData:
 enum SpecificState { IdleLeft, IdleRight, WalkLeft, WalkRight, RunLeft, RunRight, JumpFaceLeft, JumpFaceRight, JumpMoveLeft, JumpMoveRight, FallFaceLeft, FallFaceRight, FallMoveLeft, FallMoveRight, ClimbLeftIdle, ClimbLeftUp, ClimbLeftDown, ClimbRightIdle, ClimbRightUp, ClimbRightDown, ClimbTopIdleLeft, ClimbTopIdleRight, ClimbTopMoveLeft, ClimbTopMoveRight }
 enum AnimeState { Idle, Walk, Run, Jump, AirFall, Land, TopClimb, TopClimbIdle, SideClimb, SideClimbIdle }
 
-func _init():
-	currentPhysicals = PhysicalData.new()
-
-var currentInput: InputData = InputData.new()
-var prevInput: InputData = InputData.new()
+var currentInput: InputData
+var prevInput: InputData
 var prevState: SpecificState
 var currentState: SpecificState
-var currentPhysicals: PhysicalData = PhysicalData.new()
+var currentPhysicals: PhysicalData
 
 @export var walkSpeed: float = 2.5
 @export var runSeed: float = 4
@@ -38,7 +35,10 @@ var currentPhysicals: PhysicalData = PhysicalData.new()
 
 @export var deadzone: float = 0.1
 
+@onready var _initial_scale: Vector2 = rendered_flippable_node.scale
 var invertFlip: bool
+@export var animation_player: AnimationPlayer
+@export var rendered_flippable_node: Node2D
 
 @export var leftDetectOffset: float
 @export var rightDetectOffset: float
@@ -53,8 +53,10 @@ var collider_bounds: Rect2
 var otherObjectVelocity: Vector2
 var otherObjectPrevVelocity: Vector2
 
-func _ready():
-	pass # Replace with function body.
+func _init():
+	currentInput = InputData.new()
+	prevInput = InputData.new()
+	currentPhysicals = PhysicalData.new()
 
 func _process(_delta):
 	currentPhysicals.velocity = linear_velocity
@@ -84,24 +86,24 @@ func tick_state():
 
 func apply_animation():
 	var flipX: bool = PhysicsCharacter2D.is_facing_right(currentState)
-	SetFlipState(!flipX if invertFlip else flipX)
+	set_flip_state(!flipX if invertFlip else flipX)
 	var prevAnimeState = PhysicsCharacter2D.get_anime_from_state(prevState)
 	var currentAnimeState = PhysicsCharacter2D.get_anime_from_state(currentState)
 	if (prevAnimeState != currentAnimeState):
-			SetAnimTrigger(AnimeState.keys()[currentAnimeState])
+			set_playing_animation(AnimeState.keys()[currentAnimeState])
 
 static func is_facing_right(state: SpecificState) -> bool:
 	var right_states = [SpecificState.IdleRight, SpecificState.WalkRight, SpecificState.RunRight, SpecificState.JumpFaceRight, SpecificState.JumpMoveRight, SpecificState.FallFaceRight, SpecificState.FallMoveRight, SpecificState.ClimbRightIdle, SpecificState.ClimbRightUp, SpecificState.ClimbRightDown, SpecificState.ClimbTopIdleRight, SpecificState.ClimbTopMoveRight]
 	return right_states.has(state)
 
-func SetFlipState(flipX: bool):
-	# for (sprite7Up in Sprite7Up):
-	# 		sprite7Up.flipX = flipX;
-	pass
-func SetAnimTrigger(name: String):
-	# foreach(var spriteAnim in SpriteAnim)
-	# 		spriteAnim.SetTrigger(name);
-	pass
+func set_flip_state(flipX: bool):
+	rendered_flippable_node.scale = Vector2(_initial_scale.x * (1 if flipX else -1), _initial_scale.y)
+func set_playing_animation(anime_name: String):
+	if animation_player != null:
+		if (animation_player.has_animation(anime_name)):
+			animation_player.play(anime_name)
+		else:
+			animation_player.play("RESET")
 
 func move_character(delta):
 		var horizontalForce: float = 0

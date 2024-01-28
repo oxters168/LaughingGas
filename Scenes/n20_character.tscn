@@ -513,7 +513,7 @@ tracks/41/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_qfg0g"]
-resource_name = "RunRight"
+resource_name = "Run"
 length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
@@ -1024,7 +1024,7 @@ tracks/41/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6nw66"]
 _data = {
 "RESET": SubResource("Animation_kac7k"),
-"RunRight": SubResource("Animation_qfg0g")
+"Run": SubResource("Animation_qfg0g")
 }
 
 [node name="Node2D" type="Node2D"]
@@ -1153,4 +1153,4 @@ rest = Transform2D(0.593199, 0.805056, -0.805056, 0.593199, -2.28333, 39.7031)
 libraries = {
 "": SubResource("AnimationLibrary_6nw66")
 }
-autoplay = "RunRight"
+autoplay = "Run"

@@ -7,7 +7,7 @@
 radius = 2.0
 height = 10.0
 
-[node name="PhysicsCharacter2D" type="RigidBody2D"]
+[node name="PhysicsCharacter2D" type="RigidBody2D" node_paths=PackedStringArray("animation_player", "rendered_flippable_node")]
 lock_rotation = true
 script = ExtResource("1_l2by1")
 walkSpeed = 50.0
@@ -17,17 +17,12 @@ walkJumpSpeed = 150.0
 runJumpSpeed = 120.0
 addedFallAcceleration = 0.0
 wallDetectionDistance = 2.0
-groundMask = null
-wallMask = null
-ceilingMask = null
-deadzone = null
+animation_player = NodePath("Node2D/AnimationPlayer")
+rendered_flippable_node = NodePath("Node2D")
 leftDetectOffset = -1.0
 rightDetectOffset = -1.0
 topDetectOffset = -1.0
 bottomDetectOffset = -1.0
-sideDetectVerticalOffset = null
-verticalDetectSideOffset = null
-debug_wall_rays = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -5)
@@ -35,3 +30,11 @@ shape = SubResource("CapsuleShape2D_xsgm4")
 
 [node name="Node2D" parent="." instance=ExtResource("2_3n0cg")]
 scale = Vector2(0.09, 0.09)
+
+[node name="handL" parent="Node2D/Skeleton2D/hip/body/shoulderL/forearmL" index="0"]
+scale = Vector2(1, 1)
+
+[node name="toeL" parent="Node2D/Skeleton2D/hip/thighL" index="0"]
+scale = Vector2(1, 1)
+
+[editable path="Node2D"]
