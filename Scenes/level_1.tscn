@@ -2,21 +2,20 @@
 
 [ext_resource type="PackedScene" uid="uid://chkb7l3wc7oy5" path="res://Prefabs/physics_character_2d.tscn" id="1_gywtk"]
 [ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="2_5ixff"]
+[ext_resource type="PackedScene" uid="uid://dlalilgk1qkyl" path="res://player_camera_2d.tscn" id="2_x2uuy"]
 [ext_resource type="PackedScene" uid="uid://c5dowlm0wh0qj" path="res://Prefabs/intestine_wall.tscn" id="3_d50sy"]
-[ext_resource type="Script" path="res://Scripts/PlayerCamera2D.gd" id="4_8anjl"]
 [ext_resource type="PackedScene" uid="uid://drn5tl62f2xsb" path="res://Prefabs/polyp.tscn" id="5_v43bx"]
 
 [node name="Level_1" type="Node2D"]
 
 [node name="PhysicsCharacter2D" parent="." instance=ExtResource("1_gywtk")]
 
-[node name="PlayerCamera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
-zoom = Vector2(5, 5)
-script = ExtResource("4_8anjl")
+[node name="PlayerCamera2D" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_x2uuy")]
 player = NodePath("../PhysicsCharacter2D")
-internal_bounds = Rect2(0, 0, 100, 0)
-player_offset = Vector2(0, -20)
-fast_move_threshold = 50.0
+internal_bounds = Rect2(0, 0, 100, 100)
+reset_threshold = 50.0
+camera_velocity = 3.0
+display_camera_mode = true
 
 [node name="ground_objs" type="Node2D" parent="."]
 
