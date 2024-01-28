@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlalilgk1qkyl"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerCamera2D.gd" id="1_o7kba"]
+
+[node name="PlayerCamera2D" type="Camera2D" node_paths=PackedStringArray("player")]
+zoom = Vector2(5, 5)
+script = ExtResource("1_o7kba")
+player = NodePath("")
+internal_bounds = Rect2(0, 0, 100, 0)
+player_offset = Vector2(0, -20)
+fast_move_threshold = 50.0

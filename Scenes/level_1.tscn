@@ -14,6 +14,8 @@
 zoom = Vector2(5, 5)
 script = ExtResource("4_8anjl")
 player = NodePath("../PhysicsCharacter2D")
+internal_bounds = Rect2(0, 0, 100, 0)
+player_offset = Vector2(0, -20)
 fast_move_threshold = 50.0
 
 [node name="ground_objs" type="Node2D" parent="."]
