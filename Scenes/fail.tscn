@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://3wl3r6kkhxlr"]
+
+[ext_resource type="Texture2D" uid="uid://caa2rla0hslfl" path="res://Assets/TestArt/Fail.png" id="1_h38p1"]
+[ext_resource type="Script" path="res://Scripts/RestartButton.gd" id="2_3cl3j"]
+
+[node name="Fail" type="Node2D"]
+
+[node name="Fail" type="Sprite2D" parent="."]
+position = Vector2(339, 340)
+texture = ExtResource("1_h38p1")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 376.0
+offset_top = 140.0
+offset_right = 903.0
+offset_bottom = 334.0
+text = "Resstart Last Level"
+script = ExtResource("2_3cl3j")

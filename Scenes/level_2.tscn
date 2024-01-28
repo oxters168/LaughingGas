@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://7ugpykriseom"]
+[gd_scene load_steps=7 format=3 uid="uid://7ugpykriseom"]
 
+[ext_resource type="Script" path="res://Scripts/PlayableLevel.gd" id="1_a4taq"]
 [ext_resource type="Texture2D" uid="uid://2yhs5lg4ejsp" path="res://Textures/stomach.png" id="1_xskp6"]
 [ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="2_fd7gc"]
 [ext_resource type="PackedScene" uid="uid://chkb7l3wc7oy5" path="res://Prefabs/physics_character_2d.tscn" id="3_vg7dc"]
@@ -7,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://ckpn2eyatluef" path="res://Audio/Lava_Stage_Stomach_BGM.mp3" id="5_qwcw7"]
 
 [node name="Level2" type="Node2D"]
+script = ExtResource("1_a4taq")
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -3
@@ -19,6 +21,12 @@ position = Vector2(256, 0)
 
 [node name="PhysicsCharacter2D" parent="." instance=ExtResource("3_vg7dc")]
 position = Vector2(260, -12)
+animation_player = Object(AnimationPlayer,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","active":true,"deterministic":false,"reset_on_save":true,"root_node":NodePath(".."),"root_motion_track":NodePath(""),"audio_max_polyphony":32,"callback_mode_process":1,"callback_mode_method":0,"libraries":{
+"": null
+},"autoplay":"Run","playback_default_blend_time":0.0,"speed_scale":1.0,"movie_quit_on_finish":false,"blend_times":[],"script":null)
+
+rendered_flippable_node = Object(Node2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(0.09, 0.09),"skew":0.0,"script":null)
+
 
 [node name="PlayerCamera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
 zoom = Vector2(5, 5)
