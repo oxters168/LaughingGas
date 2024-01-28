@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://7ugpykriseom"]
+[gd_scene load_steps=14 format=3 uid="uid://7ugpykriseom"]
 
 [ext_resource type="Script" path="res://Scripts/PlayableLevel.gd" id="1_a4taq"]
 [ext_resource type="Texture2D" uid="uid://2yhs5lg4ejsp" path="res://Textures/stomach.png" id="1_xskp6"]
@@ -7,13 +7,11 @@
 [ext_resource type="AudioStream" uid="uid://ckpn2eyatluef" path="res://Audio/Lava_Stage_Stomach_BGM.mp3" id="5_qwcw7"]
 [ext_resource type="PackedScene" uid="uid://dmubgofgqmjv1" path="res://Prefabs/stomach_lining.tscn" id="6_6njni"]
 [ext_resource type="Script" path="res://Scripts/FoodSpawner.gd" id="6_silik"]
-[ext_resource type="PackedScene" uid="uid://dtxqaunvl5uik" path="res://Scenes/butterfly_enemy.tscn" id="7_fdxbo"]
+[ext_resource type="PackedScene" path="res://Scenes/butterfly_enemy.tscn" id="7_fdxbo"]
 [ext_resource type="PackedScene" uid="uid://bd6hoe52vt87s" path="res://Prefabs/food_stuff.tscn" id="7_sbjv0"]
 [ext_resource type="PackedScene" uid="uid://db41b5gvj6rmw" path="res://Prefabs/stomach_wall.tscn" id="8_op3gx"]
 [ext_resource type="PackedScene" uid="uid://bm3onxtde52mv" path="res://Prefabs/intestine_exit.tscn" id="11_rir7v"]
 [ext_resource type="Script" path="res://Scripts/FailArea.gd" id="12_8ubgk"]
-[ext_resource type="Texture2D" uid="uid://coowaj5x0gyx" path="res://Assets/CoderArt/StomachAcid.png" id="13_x4k5k"]
-[ext_resource type="PackedScene" uid="uid://drn5tl62f2xsb" path="res://Prefabs/polyp.tscn" id="14_ywox6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cyk77"]
 size = Vector2(4096, 512)
@@ -67,112 +65,3 @@ script = ExtResource("12_8ubgk")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FailArea"]
 position = Vector2(0, 666)
 shape = SubResource("RectangleShape2D_cyk77")
-
-[node name="StomachAcid" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.627451)
-position = Vector2(3, 285)
-scale = Vector2(0.765625, 0.811284)
-texture = ExtResource("13_x4k5k")
-
-[node name="polyp_objs" type="Node2D" parent="."]
-
-[node name="Polyp" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(113, 37)
-scale = Vector2(1.485, 1.485)
-
-[node name="Polyp2" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(51, -5)
-scale = Vector2(1.48, 1.48)
-
-[node name="Polyp15" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(-100, -835)
-
-[node name="Polyp17" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(118, -973)
-
-[node name="Polyp3" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(-5, 44)
-scale = Vector2(2.42, 2.42)
-
-[node name="Polyp4" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(-80, -36)
-scale = Vector2(1.97, 1.97)
-
-[node name="Polyp5" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(-161, -59)
-scale = Vector2(2.925, 2.925)
-
-[node name="Polyp6" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(84, -76)
-
-[node name="Polyp18" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(165, -54)
-scale = Vector2(2.03, 2.03)
-
-[node name="Polyp19" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(-23, -135)
-scale = Vector2(1.925, 1.925)
-
-[node name="Polyp20" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(-120, -187)
-scale = Vector2(1.655, 1.655)
-
-[node name="Polyp7" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(199, -129)
-scale = Vector2(2.225, 2.225)
-
-[node name="Polyp12" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(159, -261)
-scale = Vector2(1.625, 1.625)
-
-[node name="Polyp21" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(187, -379)
-scale = Vector2(3.155, 3.155)
-
-[node name="Polyp13" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(-136, -637)
-
-[node name="Polyp8" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(84, -164)
-scale = Vector2(2.995, 2.995)
-
-[node name="Polyp11" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(203, -590)
-scale = Vector2(2.995, 2.995)
-
-[node name="Polyp9" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(-35, -480)
-scale = Vector2(6.585, 6.585)
-
-[node name="Polyp10" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(-183, -252)
-scale = Vector2(2.23, 2.23)
-
-[node name="Polyp14" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(40, -772)
-scale = Vector2(2.23, 2.23)
-
-[node name="Polyp16" parent="polyp_objs" instance=ExtResource("14_ywox6")]
-z_index = -1
-position = Vector2(-257, -821)
-scale = Vector2(2.23, 2.23)
