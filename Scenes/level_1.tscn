@@ -481,7 +481,7 @@ path_nodes = [NodePath("../EndoPath/0"), NodePath("../EndoPath/1"), NodePath("..
 [node name="Endoscope" type="PathFollow2D" parent="PathNodes2D" node_paths=PackedStringArray("path_nodes")]
 script = ExtResource("9_a2djt")
 path_nodes = NodePath("..")
-follow_velocity = 20.0
+follow_velocity = 30.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathNodes2D/Endoscope"]
 scale = Vector2(0.1, 0.1)

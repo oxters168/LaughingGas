@@ -1,10 +1,20 @@
 [gd_scene load_steps=2 format=3 uid="uid://wb0rhmk7q76o"]
 
-[ext_resource type="Texture2D" uid="uid://do2qdrvun4s5r" path="res://Textures/Victory_Screen_copy.png" id="1_w4fyl"]
+[ext_resource type="Texture2D" uid="uid://ddhjqvt5vg1bb" path="res://Textures/Victory Screen .png" id="1_3cctr"]
 
 [node name="WinScene" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(575, 324)
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("1_w4fyl")
+texture = ExtResource("1_3cctr")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 984.0
+offset_top = 618.0
+offset_right = 1148.0
+offset_bottom = 645.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "Press ] or the back/media button on the
+controller during the first level for a secret"
