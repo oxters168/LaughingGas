@@ -1,0 +1,108 @@
+[gd_scene load_steps=6 format=3 uid="uid://wafaennscffn"]
+
+[ext_resource type="PackedScene" uid="uid://chkb7l3wc7oy5" path="res://Prefabs/physics_character_2d.tscn" id="1_gywtk"]
+[ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="2_5ixff"]
+[ext_resource type="PackedScene" uid="uid://c5dowlm0wh0qj" path="res://Prefabs/intestine_wall.tscn" id="3_d50sy"]
+[ext_resource type="Script" path="res://Scripts/PlayerCamera2D.gd" id="4_8anjl"]
+[ext_resource type="PackedScene" uid="uid://drn5tl62f2xsb" path="res://Prefabs/polyp.tscn" id="5_v43bx"]
+
+[node name="Level_1" type="Node2D"]
+
+[node name="PhysicsCharacter2D" parent="." instance=ExtResource("1_gywtk")]
+
+[node name="PlayerCamera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+zoom = Vector2(5, 5)
+script = ExtResource("4_8anjl")
+player = NodePath("../PhysicsCharacter2D")
+fast_move_threshold = 50.0
+
+[node name="ground_objs" type="Node2D" parent="."]
+
+[node name="intestine_ground" parent="ground_objs" instance=ExtResource("2_5ixff")]
+
+[node name="intestine_ground2" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(128, 0)
+
+[node name="intestine_ground3" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(256, 0)
+
+[node name="intestine_ground4" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(256, -72)
+
+[node name="intestine_ground5" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(128, -72)
+
+[node name="intestine_ground6" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(0, -72)
+
+[node name="intestine_ground7" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(0, -144)
+
+[node name="intestine_ground8" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(0, -216)
+
+[node name="intestine_ground9" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(256, -144)
+
+[node name="intestine_ground10" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(128, -144)
+
+[node name="intestine_ground11" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(-128, -216)
+
+[node name="intestine_ground12" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(-128, -288)
+
+[node name="intestine_ground13" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(0, -288)
+
+[node name="intestine_ground14" parent="ground_objs" instance=ExtResource("2_5ixff")]
+position = Vector2(128, -288)
+
+[node name="wall_objs" type="Node2D" parent="."]
+
+[node name="intestine_wall" parent="wall_objs" instance=ExtResource("3_d50sy")]
+position = Vector2(360, -70)
+
+[node name="intestine_wall4" parent="wall_objs" instance=ExtResource("3_d50sy")]
+position = Vector2(104, -214)
+
+[node name="intestine_wall5" parent="wall_objs" instance=ExtResource("3_d50sy")]
+position = Vector2(232, -358)
+
+[node name="intestine_wall2" parent="wall_objs" instance=ExtResource("3_d50sy")]
+position = Vector2(-104, -142)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="intestine_wall3" parent="wall_objs" instance=ExtResource("3_d50sy")]
+position = Vector2(-232, -286)
+rotation = 3.14159
+scale = Vector2(1, -1)
+
+[node name="polyp_objs" type="Node2D" parent="."]
+
+[node name="Polyp" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(300, 4)
+rotation = 3.23759
+scale = Vector2(0.8, 0.8)
+
+[node name="Polyp2" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(290, -141)
+rotation = -0.20944
+scale = Vector2(2, 2)
+
+[node name="Polyp3" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(181, -69)
+rotation = -3.05433
+scale = Vector2(1.8, 1.8)
+
+[node name="Polyp4" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(165, -71)
+rotation = -3.76118
+scale = Vector2(0.5, 0.5)
+
+[node name="Polyp5" parent="polyp_objs" instance=ExtResource("5_v43bx")]
+position = Vector2(45, -140)
+rotation = -6.36173
+scale = Vector2(2.8, 2.8)
