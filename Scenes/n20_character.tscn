@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctdgk7clxk5r8"]
+[gd_scene load_steps=14 format=3 uid="uid://ctdgk7clxk5r8"]
 
 [ext_resource type="Texture2D" uid="uid://behcq3qunckdk" path="res://Textures/Dr_N2O_right_foot.png" id="1_q56et"]
 [ext_resource type="Texture2D" uid="uid://b23jtmnepnv3u" path="res://Textures/Dr_N2O_right_arm.png" id="2_w7fv7"]
 [ext_resource type="Texture2D" uid="uid://bv1y3yeoy80bl" path="res://Textures/Dr_N2O_body_only.png" id="3_dr4hm"]
 [ext_resource type="Texture2D" uid="uid://dihsvtw0ikcip" path="res://Textures/Dr_N2O_head_only.png" id="4_181g4"]
+[ext_resource type="Texture2D" uid="uid://btd1j7nw4j5l1" path="res://Textures/Dr_N2O_arm_w_horn.png" id="4_285sj"]
 
 [sub_resource type="Animation" id="Animation_g13bl"]
 resource_name = "AirFall"
@@ -3755,6 +3756,7 @@ tracks/43/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6nw66"]
 _data = {
+"AirFall": SubResource("Animation_g13bl"),
 "RESET": SubResource("Animation_kac7k"),
 "Run": SubResource("Animation_qfg0g"),
 "SideClimb": SubResource("Animation_ww2d3"),
@@ -3796,10 +3798,10 @@ bones = ["hip", PackedFloat32Array(0, 0, 1, 1, 1, 0), "hip/body", PackedFloat32A
 [node name="arm_left" type="Polygon2D" parent="polygons"]
 position = Vector2(-2, 23)
 rotation = 1.56982
-texture = ExtResource("2_w7fv7")
+texture = ExtResource("4_285sj")
 skeleton = NodePath("../../Skeleton2D")
 polygon = PackedVector2Array(0.78125, 4.16667, 18.4896, 14.5833, 18.4896, 14.8437, 32.8125, 1.82292, 34.6354, 0.520833, 48.6979, 0, 55.2083, 7.03125, 53.9062, 19.5313, 48.4375, 25.5208, 30.7292, 18.75, 17.9688, 27.0833, 0, 14.5833)
-uv = PackedVector2Array(0.78125, 4.16667, 18.4896, 14.5833, 18.4896, 14.8437, 32.8125, 1.82292, 34.6354, 0.520833, 48.6979, 0, 55.2083, 7.03125, 53.9062, 19.5313, 48.4375, 25.5208, 30.7292, 18.75, 17.9688, 27.0833, 0, 14.5833)
+uv = PackedVector2Array(0.78125, 4.16667, 18.4896, 14.5833, 18.4896, 14.8437, 32.8125, 1.82292, 34.6354, 0.520833, 48.6979, 0, 51.5395, 7.09505, 50.7363, 17.2691, 48.4375, 25.5208, 30.7292, 18.75, 17.9688, 27.0833, 0, 14.5833)
 bones = ["hip", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "hip/body", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "hip/body/head", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "hip/body/shoulderL", PackedFloat32Array(1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1), "hip/body/shoulderL/forearmL", PackedFloat32Array(0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0), "hip/body/shoulderL/forearmL/handL", PackedFloat32Array(0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0), "hip/body/shoulderR", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "hip/body/shoulderR/forearmR", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "hip/body/shoulderR/forearmR/handR", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "hip/thighR", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "hip/thighR/toeR", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "hip/thighL", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "hip/thighL/toeL", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)]
 
 [node name="head" type="Polygon2D" parent="polygons"]
@@ -3894,4 +3896,4 @@ rest = Transform2D(0.593199, 0.805056, -0.805056, 0.593199, -2.28333, 39.7031)
 libraries = {
 "": SubResource("AnimationLibrary_6nw66")
 }
-autoplay = "RESET"
+autoplay = "Run"

@@ -32,9 +32,6 @@ shape = SubResource("CapsuleShape2D_xsgm4")
 [node name="Node2D" parent="." instance=ExtResource("2_3n0cg")]
 scale = Vector2(0.09, 0.09)
 
-[node name="handL" parent="Node2D/Skeleton2D/hip/body/shoulderL/forearmL" index="0"]
-scale = Vector2(1, 1)
-
 [node name="toeL" parent="Node2D/Skeleton2D/hip/thighL" index="0"]
 scale = Vector2(1, 1)
 
