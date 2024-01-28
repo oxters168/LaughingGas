@@ -377,49 +377,9 @@ position = Vector2(-111, -289)
 rotation = 3.12131
 scale = Vector2(0.3, 0.3)
 
-[node name="Polyp16" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(75, -421)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
 [node name="Polyp17" parent="." instance=ExtResource("5_v43bx")]
 position = Vector2(-106, -289)
 rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp18" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(81, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp19" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(87, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp20" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(93, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp21" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(99, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp22" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(105, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp23" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(111, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp24" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(116, -420)
-rotation = 0.0217299
 scale = Vector2(0.3, 0.3)
 
 [node name="Polyp25" parent="." instance=ExtResource("5_v43bx")]
@@ -482,65 +442,9 @@ position = Vector2(187, -421)
 rotation = 0.0217299
 scale = Vector2(0.3, 0.3)
 
-[node name="Polyp37" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(193, -421)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp38" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(199, -421)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
 [node name="Polyp39" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(205, -421)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp40" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(210, -421)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp41" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(216, -421)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp42" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(222, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp43" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(228, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp44" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(234, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp45" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(240, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp46" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(246, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp47" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(252, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp48" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(257, -420)
-rotation = 0.0217299
-scale = Vector2(0.3, 0.3)
+position = Vector2(191, -359)
+rotation = -1.62908
 
 [node name="Polyp14" parent="." instance=ExtResource("5_v43bx")]
 position = Vector2(149, -364)
@@ -584,21 +488,6 @@ scale = Vector2(0.3, 0.3)
 
 [node name="Polyp56" parent="." instance=ExtResource("5_v43bx")]
 position = Vector2(190, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp57" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(104, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp58" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(110, -364)
-rotation = 3.12131
-scale = Vector2(0.3, 0.3)
-
-[node name="Polyp59" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(116, -364)
 rotation = 3.12131
 scale = Vector2(0.3, 0.3)
 
@@ -656,5 +545,9 @@ position = Vector2(27, -289)
 rotation = 3.03687
 
 [node name="Polyp71" parent="." instance=ExtResource("5_v43bx")]
-position = Vector2(121, -327)
-rotation = 1.68139
+position = Vector2(100, -288)
+rotation = 2.96379
+
+[node name="Polyp40" parent="." instance=ExtResource("5_v43bx")]
+position = Vector2(50, -351)
+rotation = 0.0980062

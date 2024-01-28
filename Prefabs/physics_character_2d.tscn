@@ -14,8 +14,8 @@ script = ExtResource("1_l2by1")
 walkSpeed = 50.0
 runSeed = 80.0
 climbSpeed = 50.0
-walkJumpSpeed = 150.0
-runJumpSpeed = 120.0
+walkJumpSpeed = 200.0
+runJumpSpeed = 200.0
 addedFallAcceleration = 0.0
 wallDetectionDistance = 2.0
 animation_player = NodePath("Node2D/AnimationPlayer")
@@ -31,12 +31,6 @@ shape = SubResource("CapsuleShape2D_xsgm4")
 
 [node name="Node2D" parent="." instance=ExtResource("2_3n0cg")]
 scale = Vector2(0.09, 0.09)
-
-[node name="toeL" parent="Node2D/Skeleton2D/hip/thighL" index="0"]
-scale = Vector2(1, 1)
-
-[node name="toeL" parent="Node2D/Skeleton2D/hip/thighL/toeL" index="0"]
-scale = Vector2(1, 1)
 
 [node name="Honker" type="Node2D" parent="."]
 script = ExtResource("3_pkttc")
