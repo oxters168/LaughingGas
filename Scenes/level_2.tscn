@@ -1,12 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://7ugpykriseom"]
+[gd_scene load_steps=12 format=3 uid="uid://7ugpykriseom"]
 
 [ext_resource type="Script" path="res://Scripts/PlayableLevel.gd" id="1_a4taq"]
 [ext_resource type="Texture2D" uid="uid://2yhs5lg4ejsp" path="res://Textures/stomach.png" id="1_xskp6"]
 [ext_resource type="PackedScene" uid="uid://chkb7l3wc7oy5" path="res://Prefabs/physics_character_2d.tscn" id="3_vg7dc"]
 [ext_resource type="Script" path="res://Scripts/PlayerCamera2D.gd" id="4_t5pvh"]
 [ext_resource type="AudioStream" uid="uid://ckpn2eyatluef" path="res://Audio/Lava_Stage_Stomach_BGM.mp3" id="5_qwcw7"]
-[ext_resource type="PackedScene" path="res://Prefabs/stomach_lining.tscn" id="6_6njni"]
+[ext_resource type="PackedScene" uid="uid://dmubgofgqmjv1" path="res://Prefabs/stomach_lining.tscn" id="6_6njni"]
 [ext_resource type="Script" path="res://Scripts/FoodSpawner.gd" id="6_silik"]
+[ext_resource type="PackedScene" path="res://Scenes/butterfly_enemy.tscn" id="7_fdxbo"]
+[ext_resource type="PackedScene" uid="uid://bd6hoe52vt87s" path="res://Prefabs/food_stuff.tscn" id="7_sbjv0"]
+[ext_resource type="PackedScene" uid="uid://db41b5gvj6rmw" path="res://Prefabs/stomach_wall.tscn" id="8_op3gx"]
+[ext_resource type="PackedScene" uid="uid://bm3onxtde52mv" path="res://Prefabs/intestine_exit.tscn" id="11_rir7v"]
 
 [node name="Level2" type="Node2D"]
 script = ExtResource("1_a4taq")
@@ -17,10 +21,8 @@ position = Vector2(0, -540)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_xskp6")
 
-[node name="PhysicsCharacter2D" parent="." node_paths=PackedStringArray("animation_player", "rendered_flippable_node") instance=ExtResource("3_vg7dc")]
+[node name="PhysicsCharacter2D" parent="." instance=ExtResource("3_vg7dc")]
 position = Vector2(260, -12)
-animation_player = NodePath("")
-rendered_flippable_node = NodePath("")
 
 [node name="PlayerCamera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
 zoom = Vector2(5, 5)
@@ -31,10 +33,24 @@ player = NodePath("../PhysicsCharacter2D")
 stream = ExtResource("5_qwcw7")
 autoplay = true
 
+[node name="food_spawner" type="Node2D" parent="."]
+position = Vector2(-64, -900)
+script = ExtResource("6_silik")
+prefab = ExtResource("7_sbjv0")
+continuously_spawn = true
+spawn_time = 1.0
+
 [node name="stomach_lining" parent="." instance=ExtResource("6_6njni")]
 position = Vector2(256, 0)
 
-[node name="FoodSpawner" type="Node2D" parent="."]
-position = Vector2(-64, -900)
+[node name="butterfly_spawner" type="Node2D" parent="."]
 script = ExtResource("6_silik")
-spawn_length = 384.0
+prefab = ExtResource("7_fdxbo")
+
+[node name="stomach_wall" parent="." instance=ExtResource("8_op3gx")]
+
+[node name="stomach_wall2" parent="." instance=ExtResource("8_op3gx")]
+scale = Vector2(-1, 1)
+
+[node name="intestine_exit" parent="." instance=ExtResource("11_rir7v")]
+position = Vector2(283, 0)

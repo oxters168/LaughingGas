@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://db41b5gvj6rmw"]
+
+[ext_resource type="PackedScene" uid="uid://dmubgofgqmjv1" path="res://Prefabs/stomach_lining.tscn" id="1_ecqlo"]
+
+[node name="stomach_wall" type="Node2D"]
+
+[node name="stomach_lining2" parent="." instance=ExtResource("1_ecqlo")]
+position = Vector2(309, -53)
+rotation = -1.57079
+
+[node name="stomach_lining3" parent="." instance=ExtResource("1_ecqlo")]
+position = Vector2(309, -181)
+rotation = -1.57079
+
+[node name="stomach_lining4" parent="." instance=ExtResource("1_ecqlo")]
+position = Vector2(309, -309)
+rotation = -1.57079
+
+[node name="stomach_lining5" parent="." instance=ExtResource("1_ecqlo")]
+position = Vector2(309, -437)
+rotation = -1.57079
+
+[node name="stomach_lining6" parent="." instance=ExtResource("1_ecqlo")]
+position = Vector2(309, -565)
+rotation = -1.57079
+
+[node name="stomach_lining7" parent="." instance=ExtResource("1_ecqlo")]
+position = Vector2(309, -693)
+rotation = -1.57079
+
+[node name="stomach_lining8" parent="." instance=ExtResource("1_ecqlo")]
+position = Vector2(309, -821)
+rotation = -1.57079
+
+[node name="stomach_lining9" parent="." instance=ExtResource("1_ecqlo")]
+position = Vector2(267, -922)
+rotation = -2.35619
+
+[node name="stomach_lining10" parent="." instance=ExtResource("1_ecqlo")]
+position = Vector2(177, -1012)
+rotation = -2.35619

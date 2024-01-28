@@ -7,10 +7,8 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="physics_character_2d" parent="." node_paths=PackedStringArray("animation_player", "rendered_flippable_node") instance=ExtResource("1_iii1a")]
+[node name="physics_character_2d" parent="." instance=ExtResource("1_iii1a")]
 position = Vector2(0, -11.12)
-animation_player = NodePath("")
-rendered_flippable_node = NodePath("")
 
 [node name="intestine_ground" parent="." instance=ExtResource("3_6dot2")]
 
