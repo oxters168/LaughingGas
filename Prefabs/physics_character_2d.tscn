@@ -37,4 +37,7 @@ scale = Vector2(1, 1)
 [node name="toeL" parent="Node2D/Skeleton2D/hip/thighL" index="0"]
 scale = Vector2(1, 1)
 
+[node name="toeL" parent="Node2D/Skeleton2D/hip/thighL/toeL" index="0"]
+scale = Vector2(1, 1)
+
 [editable path="Node2D"]

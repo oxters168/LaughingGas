@@ -60,19 +60,20 @@ func _init():
 
 func _process(_delta):
 	currentPhysicals.velocity = linear_velocity
-	DebugDraw.set_text("Velocity", Vector2(MathHelpers.to_decimal_places(currentPhysicals.velocity.x, 2), MathHelpers.to_decimal_places(currentPhysicals.velocity.y, 2)))
-	DebugDraw.set_text("CurrentState", SpecificState.keys()[currentState])
-	DebugDraw.set_text("Position", position)
+	grab_input()
 	detect_wall()
 	tick_state()
 	apply_animation()
+	DebugDraw.set_text("Velocity", Vector2(MathHelpers.to_decimal_places(currentPhysicals.velocity.x, 2), MathHelpers.to_decimal_places(currentPhysicals.velocity.y, 2)))
+	DebugDraw.set_text("CurrentState", SpecificState.keys()[currentState])
+	DebugDraw.set_text("Position", position)
 func _physics_process(delta):
 	retrieve_surrounding_velocity()
 	move_character(delta)
 	prevInput = currentInput
 	DebugDraw.set_text("PhysicsDelta", delta)
 
-func _input(_event):
+func grab_input():
 	var input_vector = Input.get_vector("move_hor_neg", "move_hor_pos", "move_ver_neg", "move_ver_pos")
 	currentInput.horizontal = input_vector.x
 	currentInput.vertical = input_vector.y
@@ -90,7 +91,14 @@ func apply_animation():
 	var prevAnimeState = PhysicsCharacter2D.get_anime_from_state(prevState)
 	var currentAnimeState = PhysicsCharacter2D.get_anime_from_state(currentState)
 	if (prevAnimeState != currentAnimeState):
-			set_playing_animation(AnimeState.keys()[currentAnimeState])
+		var sent_name = AnimeState.keys()[currentAnimeState]
+		var speed_scale = 1
+		if currentAnimeState == AnimeState.Walk:
+			sent_name = AnimeState.keys()[AnimeState.Run]
+			speed_scale = 2
+		elif currentAnimeState == AnimeState.Run:
+			speed_scale = 4
+		set_playing_animation(sent_name, speed_scale)
 
 static func is_facing_right(state: SpecificState) -> bool:
 	var right_states = [SpecificState.IdleRight, SpecificState.WalkRight, SpecificState.RunRight, SpecificState.JumpFaceRight, SpecificState.JumpMoveRight, SpecificState.FallFaceRight, SpecificState.FallMoveRight, SpecificState.ClimbRightIdle, SpecificState.ClimbRightUp, SpecificState.ClimbRightDown, SpecificState.ClimbTopIdleRight, SpecificState.ClimbTopMoveRight]
@@ -98,8 +106,9 @@ static func is_facing_right(state: SpecificState) -> bool:
 
 func set_flip_state(flipX: bool):
 	rendered_flippable_node.scale = Vector2(_initial_scale.x * (1 if flipX else -1), _initial_scale.y)
-func set_playing_animation(anime_name: String):
+func set_playing_animation(anime_name: String, speed_scale: float = 1):
 	if animation_player != null:
+		animation_player.speed_scale = speed_scale
 		if (animation_player.has_animation(anime_name)):
 			animation_player.play(anime_name)
 		else:

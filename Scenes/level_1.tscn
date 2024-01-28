@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://chkb7l3wc7oy5" path="res://Prefabs/physics_character_2d.tscn" id="1_gywtk"]
 [ext_resource type="PackedScene" uid="uid://bx1misajqtksc" path="res://Prefabs/intestine_ground.tscn" id="2_5ixff"]
-[ext_resource type="PackedScene" uid="uid://dlalilgk1qkyl" path="res://player_camera_2d.tscn" id="2_x2uuy"]
+[ext_resource type="PackedScene" path="res://player_camera_2d.tscn" id="2_x2uuy"]
 [ext_resource type="PackedScene" uid="uid://c5dowlm0wh0qj" path="res://Prefabs/intestine_wall.tscn" id="3_d50sy"]
 [ext_resource type="PackedScene" uid="uid://drn5tl62f2xsb" path="res://Prefabs/polyp.tscn" id="5_v43bx"]
 [ext_resource type="Script" path="res://Scripts/PathNodes2D.gd" id="6_h7buk"]
@@ -25,9 +25,6 @@ position = Vector2(116.725, 0)
 player = NodePath("../PhysicsCharacter2D")
 internal_bounds = Rect2(0, 0, 100, 10)
 player_offset = Vector2(0, 0)
-reset_threshold = 50.0
-camera_velocity = 3.0
-display_camera_mode = true
 
 [node name="ground_objs" type="Node2D" parent="."]
 
@@ -125,10 +122,8 @@ curve = SubResource("Curve2D_g2tdv")
 script = ExtResource("6_h7buk")
 path_nodes = [NodePath("../EndoPath/0"), NodePath("../EndoPath/1"), NodePath("../EndoPath/2"), NodePath("../EndoPath/3"), NodePath("../EndoPath/4"), NodePath("../EndoPath/5"), NodePath("../EndoPath/6"), NodePath("../EndoPath/7"), NodePath("../EndoPath/8"), NodePath("../EndoPath/9"), NodePath("../EndoPath/10")]
 
-[node name="Endoscope" type="PathFollow2D" parent="PathNodes2D" node_paths=PackedStringArray("path_nodes")]
+[node name="Endoscope" type="PathFollow2D" parent="PathNodes2D"]
 script = ExtResource("9_a2djt")
-path_nodes = NodePath("")
-follow_velocity = 30.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PathNodes2D/Endoscope"]
 scale = Vector2(0.1, 0.1)
